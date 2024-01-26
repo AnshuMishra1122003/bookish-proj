@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Sample Book</title>
+</head>
+
+<body>
+
+  <form id="bookForm">
+    <input type="file" id="file" name="coverImg" placeholder="Book Cover Image:" accept="image/*" required><br>
+
+    <input type="text" id="title" name="title" placeholder="title" required><br>
+
+    <input type="text" id="author" name="genres" placeholder="author" required><br>
+
+    <!-- <label for="tags">Tags (comma-separated):</label>
+  <input type="text" id="tags" name="tags" required><br>
+
+  <label for="description">Description:</label>
+  <textarea id="description" name="description" rows="4" required></textarea><br> -->
+
+    <button type="button" id="uploadForm">Add Sample Book</button>
+  </form>
+
+  <!-- Display the cover image -->
+  <img id="coverImgPreview" style="max-width: 300px; max-height: 300px; margin-top: 10px;" alt="Cover Image Preview">
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+    import { getStorage, ref as storageRef, uploadBytes } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-storage.js";  // Update to the latest version
+
+    // Firebase configuration
+    const firebaseConfig = {
+            apiKey: "AIzaSyCiNLLV_8GXpvSD7IeVUfp4dbq-_pcvn7w",
+            authDomain: "bookish-proj.firebaseapp.com",
+            databaseURL: "https://bookish-proj-default-rtdb.firebaseio.com",
+            projectId: "bookish-proj",
+            storageBucket: "bookish-proj.appspot.com",
+            messagingSenderId: "351432216616",
+            appId: "1:351432216616:web:59c46450f373a82ad9251d",
+            measurementId: "G-DH4RJ9TML1"
+        };
+
+
+    // Initialize Firebase app
+    const app = initializeApp(firebaseConfig);
+
+    // Get authentication instance
+    const auth = getAuth(app);
+
+    // Get a reference to the Realtime Database
+    const db = getDatabase(app);
+
+    // Get a reference to Firebase Storage
+    const storage = getStorage(app);
+    // const storageRef = storageRef(storage);
+
+    // Function to add book details to the database
+  function uploadEbook() {
+    // Get file input and other form values
+    var fileInput = document.getElementById('file');
+    var titleInput = document.getElementById('title');
+    var authorInput = document.getElementById('author');
+
+    var file = fileInput.files[0];
+    var title = titleInput.value;
+    var author = authorInput.value;
+
+    // Create a storage reference
+    var storageRef = storage.ref('ebooks/' + file.name);
+
+    // Upload file
+    var uploadTask = storageRef.put(file);
+
+    // Monitor upload progress
+    uploadTask.on('state_changed',
+      function (snapshot) {
+        // Handle progress events here (if needed)
+      },
+      function (error) {
+        console.error('Error uploading file:', error);
+      },
+      function () {
+        // Upload successful, get the download URL
+        uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          // Store additional details in the database (you can use Realtime Database or Firestore)
+          firebase.database().ref('ebooks').push({
+            title: title,
+            author: author,
+            downloadURL: downloadURL
+          });
+
+          // Reset form after successful upload
+          document.getElementById('uploadForm').reset();
+        });
+      }
+    );
+  }
+</script>
+
+</body>
+
+</html>

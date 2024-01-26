@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-storage.js"></script>
+    <script src="app.js"></script>
+    <title>Firebase Image Storage</title>
+</head>
+
+<body>
+
+    <input type="file" id="imageInput" accept="image/*">
+    <button onclick="uploadImage()">Upload Image</button>
+    <img id="uploadedImage" alt="Uploaded Image">
+    <script>
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+        // Replace with your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCiNLLV_8GXpvSD7IeVUfp4dbq-_pcvn7w",
+            authDomain: "bookish-proj.firebaseapp.com",
+            databaseURL: "https://bookish-proj-default-rtdb.firebaseio.com",
+            projectId: "bookish-proj",
+            storageBucket: "bookish-proj.appspot.com",
+            messagingSenderId: "351432216616",
+            appId: "1:351432216616:web:59c46450f373a82ad9251d",
+            measurementId: "G-DH4RJ9TML1"
+        };
+
+        // Initialize Firebase
+        const firebaseApp = initializeApp(firebaseConfig);
+
+        // Get a reference to the Firebase Storage service
+        const storage = getStorage(firebaseApp);
+
+        // Function to upload the selected image to Firebase Storage
+        async function uploadImage() {
+            const imageInput = document.getElementById("imageInput");
+
+            // Get the selected file
+            const file = imageInput.files[0];
+
+            // Generate a unique name for the file
+            const fileName = `${Date.now()}_${file.name}`;
+
+            // Create a reference to the storage location
+            const storageRef = ref(storage, `images/${fileName}`);
+
+            // Upload the file
+            await uploadBytes(storageRef, file);
+
+            // Get the download URL of the uploaded image
+            const downloadURL = await getDownloadURL(storageRef);
+
+            // Display the uploaded image
+            const uploadedImage = document.getElementById("uploadedImage");
+            uploadedImage.src = downloadURL;
+        }
+
+    </script>
+
+</body>
+
+</html>

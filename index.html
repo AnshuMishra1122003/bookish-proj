@@ -1,0 +1,898 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width ,initial-scale=1" />
+    <title>Homepage</title>
+    <link href="/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-------------header starts------------------->
+    <header id="header" class="header">
+
+        <div class="header-1">
+
+            <a href="/index.html" class="logo">BOOKISH</a>
+
+            <form id="searchbar" action="#" class="search-form">
+
+                <input type="search" id="search-box" placeholder="Search Here..." />
+                <label for="search-box" class="bx bx-search"></label>
+            </form>
+
+            <div class="icons">
+                <div id="search-btn"><i class='bx bx-search'></i></div>
+            </div>
+            <div>
+                <div class="icons">
+                    <div id="user-login-btn" class="user-login-btn" onclick="togglePopup()"><i
+                            class='bx bxs-user-circle'></i>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="header-2">
+
+            <nav id="navbar" class="navbar">
+                <input class="menu-btn" type="checkbox" id="menu-btn" />
+                <label class="menu-icon" for="menu-btn">
+                    <span class="nav-icon"></span>
+                </label>
+                <div class="menu">
+                    <a href="/index.html" class="nav-link">Home</a>
+                    <a href="#" class="nav-link">Genres</a>
+                    <a href="#" class="nav-link">History</a>
+                    <a href="html/addbook.html" class="nav-link">Profile</a>
+                    <a href="#" class="nav-link">User Settings</a>
+                </div>
+            </nav>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Get all navigation links
+                const navLinks = document.querySelectorAll(".nav-link");
+                
+                // Get the current page URL
+                const currentPage = window.location.href;
+
+                // Add click event listener to each navigation link
+                navLinks.forEach(function (link) {
+                    // Check if the link corresponds to the current page
+                    if (currentPage.includes(link.href)) {
+                        link.classList.add("active");
+                    }
+
+                    link.addEventListener("click", function () {
+                        // Remove 'active' class from all links
+                        navLinks.forEach(function (navLink) {
+                            navLink.classList.remove("active");
+                        });
+
+                        // Add 'active' class to the clicked link
+                        link.classList.add("active");
+                    });
+                });
+            });
+
+            </script>
+            <!------------------navigation bar scroll--------------------->
+        <!-- <script>
+            var prevScrollpos = window.pageYOffset;
+            window.onscroll = function () {
+                var currentScrollPos = window.pageYOffset;
+                if (prevScrollpos > currentScrollPos) {
+                    document.getElementById("header").style.top = "0";
+                } else {
+                    document.getElementById("header").style.top = "200px";
+                }
+                prevScrollpos = currentScrollPos;
+            }
+        </script> -->
+    </header>
+    <!---------------------Header close---------------------->
+    <!-----------------------Carousel --------------------->
+    <div class="slideshow-container">
+        <div class="mySlides">
+            <div class="content">
+                <h3>Genres: <span>Fantasy</span>
+                </h3><br>
+                <h2> Lorem Ipsum Fantasy</h2><br>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur.
+                </p>
+            </div>
+            <div class="img-container">
+                <img class="img" src="/assets/sliding1.jpg" alt="Slide 1">
+            </div>
+            <div id="button-content" class="btn-slides">
+                <a href="#" class="read-now">Read now</a>
+                <a href="#" id="carousel-bookmark-2" class="carousel-bkmrk"><i class='bx bxs-bookmark'></i></a>
+            </div>
+        </div>
+
+        <div class="mySlides">
+            <div class="content">
+                <h3>Genres: <span>Action</span>
+                </h3><br>
+                <h2> Lorem Ipsum Action</h2><br>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur.
+                </p>
+            </div>
+            <div class="img-container">
+                <img class="img" src="/assets/slid2.jpg" alt="Slide 2">
+            </div>
+            <div id="button-content" class="btn-slides">
+                <a href="#" class="read-now">Read now</a>
+                <a href="#" id="carousel-bookmark-2" class="carousel-bkmrk"><i class='bx bxs-bookmark'></i></a>
+            </div>
+        </div>
+
+        <div class="mySlides">
+            <div class="content">
+                <h3>Genres: <span>Adventure</span>
+                </h3><br>
+                <h2> Lorem Ipsum Adventure</h2><br>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur.
+                </p>
+            </div>
+            <div class="img-container">
+                <img class="img" src="/assets/slid3.jpg" alt="Slide 3">
+            </div>
+            <div id="button-content" class="btn-slides">
+                <a href="#" class="read-now">Read now</a>
+                <a href="#" id="carousel-bookmark-2" class="carousel-bkmrk"><i class='bx bxs-bookmark'></i></a>
+            </div>
+        </div>
+
+        <div class="mySlides">
+            <div class="content">
+                <h3>Genres: <span>Fantasy</span>
+                </h3><br>
+                <h2> Lorem Ipsum Fantasy</h2><br>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur.
+                </p>
+            </div>
+            <div class="img-container">
+                <img class="img" src="/assets/sliding1.jpg" alt="Slide 1">
+            </div>
+            <div id="button-content" class="btn-slides">
+                <a href="#" class="read-now">Read now</a>
+                <a href="#" id="carousel-bookmark-2" class="carousel-bkmrk"><i class='bx bxs-bookmark'></i></a>
+            </div>
+        </div>
+
+        <div class="mySlides">
+            <div class="content">
+                <h3>Genres: <span>Action</span>
+                </h3><br>
+                <h2> Lorem Ipsum Action</h2><br>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur.
+                </p>
+            </div>
+            <div class="img-container">
+                <img class="img" src="/assets/slid2.jpg" alt="Slide 2">
+            </div>
+            <div id="button-content" class="btn-slides">
+                <a href="#" class="read-now">Read now</a>
+                <a href="#" id="carousel-bookmark-2" class="carousel-bkmrk"><i class='bx bxs-bookmark'></i></a>
+            </div>
+        </div>
+
+        <div class="mySlides">
+            <div class="content">
+                <h3>Genres: <span>Adventure</span>
+                </h3><br>
+                <h2> Lorem Ipsum Adventure</h2><br>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur.
+                </p>
+            </div>
+            <div class="img-container">
+                <img class="img" src="/assets/slid3.jpg" alt="Slide 3">
+            </div>
+            <div id="button-content" class="btn-slides">
+                <a href="#" class="read-now">Read now</a>
+                <a href="#" id="carousel-bookmark-2" class="carousel-bkmrk"><i class='bx bxs-bookmark'></i></a>
+            </div>
+        </div>
+
+        <!-- Add navigation dots here -->
+        <div style="text-align:center">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            const slides = document.getElementsByClassName("mySlides");
+            const dots = document.getElementsByClassName("dot");
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            slideIndex++;
+
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+
+            slides[slideIndex - 1].style.display = "flex";
+            dots[slideIndex - 1].className += " active";
+
+            setTimeout(showSlides, 5000); // Change slide every 5 seconds
+        }
+    </script>
+
+    <!------------------------------carousel close----------------------------------------->
+    <!-- ------------------Recently Added Novels------------------- -->
+    <section>
+        <div class="carousel-recentlyadded-container">
+            <div class="recently-added-title">
+                <h1>Recently Added Novels</h1>
+
+
+                <div class="pagination">
+                    <a class="active" onclick="showGenre(0)">All</a>
+                    <a onclick="showGenre(1)">Action</a>
+                    <a onclick="showGenre(2)">Adventure</a>
+                    <a onclick="showGenre(3)">Fantasy</a>
+                    <a onclick="showGenre(4)">Romance</a>
+                    <a onclick="showGenre(5)">Game</a>
+                    <a onclick="showGenre(6)">Urban</a>
+                </div>
+            </div>
+            <br><br>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    // Get all pagination links
+                    const paginationLinks = document.querySelectorAll(".pagination a");
+
+                    // Get the current page URL or selected genre
+                    const currentPageOrGenre = getCurrentPageOrGenre(); // Implement your logic here
+
+                    // Add click event listener to each pagination link
+                    paginationLinks.forEach(function (link, index) {
+                        // Check if the link corresponds to the current page or selected genre
+                        if (index === currentPageOrGenre) {
+                            link.classList.add("active");
+                        }
+
+                        link.addEventListener("click", function () {
+                            // Remove 'active' class from all links
+                            paginationLinks.forEach(function (paginationLink) {
+                                paginationLink.classList.remove("active");
+                            });
+
+                            // Add 'active' class to the clicked link
+                            link.classList.add("active");
+                        });
+                    });
+                });
+
+            </script>
+
+            <div class="carousel-recentlyadded-wrapper">
+
+
+                <!-- Genre: All -->
+                <div class="carousel-recentlyadded-slide">
+                    <!-- <h2 class="genre-header"></h2> -->
+                    <div class="book-grid">
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Book 1">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/slid2.jpg" alt="Book 2">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/slid3.jpg" alt="Book 3">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Book 4">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/slid2.jpg" alt="Book 5">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/slid3.jpg" alt="Book 6">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Book 7">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/slid2.jpg" alt="Book 8">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/slid3.jpg" alt="Book 9">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Book 10">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+                        <!-- Add more book covers as needed -->
+                    </div>
+                </div>
+
+                <!-- Genre: Action -->
+                <div class="carousel-recentlyadded-slide">
+                    <!-- <h2 class="genre-header"></h2> -->
+                    <div class="book-grid">
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Action Book 1">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Action Book 2">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Action Book 3">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Action Book 4">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Action Book 5">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Action Book 6">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Action Book 7">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Action Book 8">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Action Book 9">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Action Book 10">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+                        <!-- Add more action book covers as needed -->
+                    </div>
+                </div>
+
+
+                <!-- Genre: Adventure -->
+                <div class="carousel-recentlyadded-slide">
+                    <!-- <h2 class="genre-header"></h2> -->
+                    <div class="book-grid">
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Adventure Book 1">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Adventure Book 2">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Adventure Book 3">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Adventure Book 4">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Adventure Book 5">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Adventure Book 6">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Adventure Book 7">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Adventure Book 8">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Adventure Book 9">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Adventure Book 10">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+
+                        <!-- Add more adventure book covers as needed -->
+                    </div>
+                </div>
+
+                <!-- Genre: Fantasy -->
+                <div class="carousel-recentlyadded-slide">
+                    <!-- <h2 class="genre-header"></h2> -->
+                    <div class="book-grid">
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Fantasy Book 1">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Fantasy Book 2">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Fantasy Book 3">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Fantasy Book 4">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Fantasy Book 5">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Fantasy Book 6">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Fantasy Book 7">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Fantasy Book 8">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Fantasy Book 9">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Fantasy Book 10">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+
+                        <!-- Add more fantasy book covers as needed -->
+                    </div>
+                </div>
+
+
+                <!-- Genre: Romance -->
+                <div class="carousel-recentlyadded-slide">
+                    <!-- <h2 class="genre-header"></h2> -->
+                    <div class="book-grid">
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Romance Book 1">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Romance Book 2">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Romance Book 3">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Romance Book 4">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Romance Book 5">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Romance Book 6">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Romance Book 7">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Romance Book 8">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Romance Book 9">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Romance Book 10">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+
+                        <!-- Add more romance book covers as needed -->
+                    </div>
+                </div>
+
+
+                <!-- Genre: Game -->
+                <div class="carousel-recentlyadded-slide">
+                    <!-- <h2 class="genre-header"></h2> -->
+                    <div class="book-grid">
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Game Book 1">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Game Book 2">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Game Book 3">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Game Book 4">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Game Book 5">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Game Book 6">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Game Book 7">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Game Book 8">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Game Book 9">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Game Book 10">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+
+                        <!-- Add more game book covers as needed -->
+                    </div>
+                </div>
+
+
+                <!-- Genre: Urban -->
+                <div class="carousel-recentlyadded-slide">
+                    <!-- <h2 class="genre-header"></h2> -->
+                    <div class="book-grid">
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Urban Book 1">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Urban Book 2">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Urban Book 3">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Urban Book 4">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Urban Book 5">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Urban Book 6">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Urban Book 7">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Urban Book 8">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Urban Book 9">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+                        <div class="carousel-book">
+                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Urban Book 10">
+                            <a href="#">
+                                <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
+                            </a>
+                        </div>
+
+
+                        <!-- Add more urban book covers as needed -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let currentGenre = 0;
+
+            function showGenre(index) {
+                const wrapper = document.querySelector('.carousel-recentlyadded-wrapper');
+                const slideWidth = document.querySelector('.carousel-recentlyadded-slide').offsetWidth;
+
+                currentGenre = index;
+                wrapper.style.transform = `translateX(-${currentGenre * slideWidth}px)`;
+            }
+        </script>
+    </section>
+    <!-- -------------------Recently Added Novels close------------------------------ -->
+    <!-- Slider -->
+    <section>
+
+    </section>
+    <section></section>
+    <section></section>
+
+    <!------------------------Add footer--------------------------------------->
+
+    <section class="footer">
+
+        <div class="footer-container">
+
+            <div class="row">
+
+                <ul class="footer-links">
+                    <li>
+                        <a href="#"></i>All Tags</a>
+                    </li>
+                    <li>
+                        <a href="#"></i>Account Info</a>
+                    </li>
+                    <li>
+                        <a href="#"></i>Terms and Condition</a>
+                    </li>
+                    <li style="border-right: none">
+                        <a href="#"></i>Contact Us</a>
+                    </li>
+                </ul>
+                <div class="credit"> <span> Bookish </span>copyright ©2023 all rights reserved! </div>
+
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

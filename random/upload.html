@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload and Write</title>
+</head>
+
+<body>
+
+    <h1>Upload and Write</h1>
+
+    <form id="uploadForm">
+        <label for="imageInput">Upload Image:</label>
+        <input type="file" id="imageInput" accept="image/*" required>
+
+        <label for="title">Title:</label>
+        <input type="text" id="title" required>
+
+        <label for="genres">Genres:</label>
+        <input type="text" id="genres" required>
+
+        <label for="tags">Tags:</label>
+        <input type="text" id="tags" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" rows="4" required></textarea>
+
+        <input type="button" value="Submit" onclick="submitForm()">
+    </form>
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"; 
+        import { getDatabase, set, onValue } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
+
+
+
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCiNLLV_8GXpvSD7IeVUfp4dbq-_pcvn7w",
+            authDomain: "bookish-proj.firebaseapp.com",
+            databaseURL: "https://bookish-proj-default-rtdb.firebaseio.com",
+            projectId: "bookish-proj",
+            storageBucket: "bookish-proj.appspot.com",
+            messagingSenderId: "351432216616",
+            appId: "1:351432216616:web:59c46450f373a82ad9251d",
+            measurementId: "G-DH4RJ9TML1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+
+        window.submitForm = function () {
+            const imageInput = document.getElementById('imageInput');
+            const titleInput = document.getElementById('title');
+            const genresInput = document.getElementById('genres');
+            const tagsInput = document.getElementById('tags');
+            const descriptionInput = document.getElementById('description');
+
+            const file = imageInput.files[0];
+
+            const storage = getStorage();
+            const storageRef = app.Ref(storage,'images/' + file.name);
+            const databaseRef = app.database().ref('books');
+
+            storageRef.put(file).then(snapshot => {
+                storageRef.getDownloadURL().then(downloadURL => {
+                    const details = {
+                        title: titleInput.value,
+                        genres: genresInput.value,
+                        tags: tagsInput.value,
+                        description: descriptionInput.value,
+                        imageUrl: downloadURL,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
+                    };
+
+                    databaseRef.push(details);
+                    alert('Details submitted successfully!');
+                    window.location.href = 'writing.html'; // Redirect to writing.html after submission
+                });
+            }).catch(error => {
+                console.error('Error uploading image:', error);
+            });
+        }
+    </script>
+
+</body>
+
+</html>

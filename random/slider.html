@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ebook Slider</title>
+  <style>
+    body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  margin: 20px;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  flex: 0 0 50%;
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: left;
+}
+
+.slide img {
+  width: 230px;
+  height: 306px;
+  margin: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.slide-content {
+  margin-left: 20px;
+}
+
+.arrow-container {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.arrow {
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #eee;
+  padding: 10px;
+}
+
+.read-now-btn,
+.bookmark-btn {
+  margin-top: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+
+<div class="slider-container">
+  <div class="slider">
+    <!-- Slide 1 -->
+    <div class="slide">
+      <img src="/assets/slid3.jpg" alt="Book 1 Cover">
+      <div class="slide-content">
+        <h2>Title of Book 1</h2>
+        <p>Genre: Genre 1</p>
+        <p>Description: Description of Book 1</p>
+        <button class="read-now-btn">Read Now</button>
+        <button class="bookmark-btn">Bookmark</button>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="/assets/slid3.jpg" alt="Book 2 Cover">
+      <div class="slide-content">
+        <h2>Title of Book 1</h2>
+        <p>Genre: Genre 1</p>
+        <p>Description: Description of Book 1</p>
+        <button class="read-now-btn">Read Now</button>
+        <button class="bookmark-btn">Bookmark</button>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="/assets/slid3.jpg" alt="Book 3 Cover">
+      <div class="slide-content">
+        <h2>Title of Book 1</h2>
+        <p>Genre: Genre 1</p>
+        <p>Description: Description of Book 1</p>
+        <button class="read-now-btn">Read Now</button>
+        <button class="bookmark-btn">Bookmark</button>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="/assets/slid3.jpg" alt="Book 4 Cover">
+      <div class="slide-content">
+        <h2>Title of Book 1</h2>
+        <p>Genre: Genre 1</p>
+        <p>Description: Description of Book 1</p>
+        <button class="read-now-btn">Read Now</button>
+        <button class="bookmark-btn">Bookmark</button>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <img src="/assets/slid3.jpg" alt="Book 5 Cover">
+      <div class="slide-content">
+        <h2>Title of Book 1</h2>
+        <p>Genre: Genre 1</p>
+        <p>Description: Description of Book 1</p>
+        <button class="read-now-btn">Read Now</button>
+        <button class="bookmark-btn">Bookmark</button>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="/assets/slid3.jpg" alt="Book 6 Cover">
+      <div class="slide-content">
+        <h2>Title of Book 1</h2>
+        <p>Genre: Genre 1</p>
+        <p>Description: Description of Book 1</p>
+        <button class="read-now-btn">Read Now</button>
+        <button class="bookmark-btn">Bookmark</button>
+      </div>
+    </div>
+
+    <!-- Repeat similar structure for other slides -->
+
+    <!-- Slide 7 -->
+    <div class="slide">
+      <img src="/assets/slid3.jpg" alt="Book 7 Cover">
+      <div class="slide-content">
+        <h2>Title of Book 7</h2>
+        <p>Genre: Genre 7</p>
+        <p>Description: Description of Book 7</p>
+        <button class="read-now-btn">Read Now</button>
+        <button class="bookmark-btn">Bookmark</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Arrows -->
+  <div class="arrow-container">
+    <div class="arrow left-arrow" onclick="changeSlide(-1)">&#8249;</div>
+    <div class="arrow right-arrow" onclick="changeSlide(1)">&#8250;</div>
+  </div>
+</div>
+
+<script>
+  const slider = document.querySelector('.slider');
+let currentIndex = 0;
+
+function changeSlide(direction) {
+  currentIndex += direction;
+  
+  if (currentIndex < 0) {
+    currentIndex = 6; // Wrap around to the last slide
+  } else if (currentIndex > 6) {
+    currentIndex = 0; // Wrap around to the first slide
+  }
+
+  updateSlider();
+}
+
+function updateSlider() {
+  const translateValue = -currentIndex * 50 + '%';
+  slider.style.transform = `translateX(${translateValue})`;
+}
+
+// Automatically advance to the next slide every 5 seconds
+function autoAdvance() {
+  setInterval(() => {
+    changeSlide(1);
+  }, 5000); // Change slide every 5 seconds
+}
+
+updateSlider();
+autoAdvance();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Login Page</title>
+    <link href="/style.css" rel="stylesheet" />
+</head>
+<body>
+    <!-------------header starts------------------->
+    <header id="header" class="header">
+
+        <div class="header-1">
+
+            <a href="/index.html" class="logo">BOOKISH!!!</a>
+
+            <form id="searchbar" action="#" class="search-form">
+
+                <input type="search" id="search-box" placeholder="Search Here..." />
+                <label for="search-box" class="bx bx-search"></label>
+            </form>
+
+            <div class="icons">
+                <div id="search-btn"><i class='bx bx-search'></i></div>
+                <div id="user-login-btn" class="user-login-btn"><i class='bx bxs-user-circle'></i></div>
+            </div>
+        </div>
+        <div class="header-2">
+
+            <nav id="navbar" class="navbar">
+                <input class="menu-btn" type="checkbox" id="menu-btn" />
+                <label class="menu-icon" for="menu-btn">
+                    <span class="nav-icon"></span>
+                </label>
+                <div class="menu">
+                    <a href="/index.html" class="active">Home</a>
+                    <a href="#">Genres</a>
+                    <a href="#">History</a>
+                    <a href="#">Profile</a>
+                    <a href="#">User Settings</a>
+                </div>
+            </nav>
+        </div>
+        <!------------------navigation bar scroll--------------------->
+        <script>
+            var prevScrollpos = window.pageYOffset;
+            window.onscroll = function () {
+                var currentScrollPos = window.pageYOffset;
+                if (prevScrollpos > currentScrollPos) {
+                    document.getElementById("header").style.top = "0";
+                } else {
+                    document.getElementById("header").style.top = "200px";
+                }
+                prevScrollpos = currentScrollPos;
+            }
+        </script>
+    </header>
+    <!---------------------Header close---------------------->
+
+    
+    <!--login form-->
+    
+    
+    <div class="login_Form_Box">
+        <h1>Sign In</h1>
+
+        <!--email textbox-->
+        <div class="Input_Textbox">
+            <input type="email" id="Email_TextBox" placeholder="Enter Your Email" required>
+            <i class='bx bxs-envelope'></i>
+        </div>
+
+        <!--password textbox-->
+        <div class="Input_Textbox">
+            <input type="password" id="Password_TextBox" placeholder="Enter Your Password" required>
+            <i class='bx bxs-lock-alt'></i>
+        </div>
+
+
+        <div class="remember_forgot">
+            <label><input type="checkbox" />Remember me</label>
+            <a href="/html/ForgotPass.html">Forgot Password?</a>
+        </div>
+        
+        
+        <div>
+            <button ID="Login_Btn" class="form_Button">Login</button>
+        </div>
+        
+        
+        <div class="Form_link">
+            <p>Don't have an account? <a href="/html/register.html">Register Now</a></p>
+        </div>
+        
+        
+        <div class="Form_link">
+            <p>Or Sign Up With</p>
+        </div>
+        
+    
+    <!--google and facebook auth-->
+    
+        <div class="social_media">
+            <div class="">
+                <button id="google-login-btn" class="google_btn"><i class='bx bxl-google'></i></button>
+                <button id="facebook-login-btn" class="facebook_btn"><i class='bx bxl-facebook'></i></button>
+            </div>
+        </div>
+    </div>
+    <!---------------script file-------------------------->
+    <script type="module" src="/js/LoginDB.js"></script>
+
+
+    <!------------------------Add footer--------------------------------------->
+
+    <section class="footer">
+
+        <div class="footer-container">
+
+            <div class="row">
+
+                <ul class="footer-links">
+                    <li>
+                        <a href="#"></i>All Tags</a>
+                    </li>
+                    <li>
+                        <a href="#"></i>Account Info</a>
+                    </li>
+                    <li>
+                        <a href="#"></i>Terms and Condition</a>
+                    </li>
+                    <li style="border-right: none">
+                        <a href="#"></i>Contact Us</a>
+                    </li>
+                </ul>
+                <div class="credit"> <span> Bookish </span>copyright ©2023 all rights reserved! </div>
+
+            </div>
+        </div>
+    </section>
+</body>
+</html>

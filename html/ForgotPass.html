@@ -1,0 +1,107 @@
+﻿<
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width ,initial-scale=1" />
+    <title>forgotpassword</title>
+    <link href="/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-------------header starts------------------->
+    <header id="header" class="header">
+      <div class="header-1">
+        <a href="index.html" class="logo">BOOKISH</a>
+
+        <form id="searchbar" action="#" class="search-form">
+          <input type="search" id="search-box" placeholder="Search Here..." />
+          <label for="search-box" class="bx bx-search"></label>
+        </form>
+
+        <div class="icons">
+          <div id="search-btn"><i class="bx bx-search"></i></div>
+          <div id="user-login-btn" class="user-login-btn">
+            <i class="bx bxs-user-circle"></i>
+          </div>
+        </div>
+      </div>
+      <div class="header-2">
+        <nav id="navbar" class="navbar">
+          <input class="menu-btn" type="checkbox" id="menu-btn" />
+          <label class="menu-icon" for="menu-btn">
+            <span class="nav-icon"></span>
+          </label>
+          <div class="menu">
+            <a href="/index.html" class="active">Home</a>
+            <a href="#">Genres</a>
+            <a href="#">History</a>
+            <a href="#">Profile</a>
+            <a href="#">User Settings</a>
+                  </div>
+        </nav>
+      </div>
+      <!------------------navigation bar scroll--------------------->
+      <!-- <script>
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function () {
+          var currentScrollPos = window.pageYOffset;
+          if (prevScrollpos > currentScrollPos) {
+            document.getElementById("header").style.top = "0";
+          } else {
+            document.getElementById("header").style.top = "200px";
+          }
+          prevScrollpos = currentScrollPos;
+        };
+      </script> -->
+    </header>
+    <!---------------------Header close---------------------->
+    <!----------------------forgot password------------------>
+    <div class="forgot-password-form">
+      <div>
+        <i class="bx bxs-lock-alt"></i>
+        <h1>Forgot Password?</h1>
+      </div>
+      <div>
+        <p class="forgotpassword_label">You can reset your Password here</p>
+      </div>
+      <div class="forgotpassword_Textbox">
+        <input type="email" id="email" placeholder="Email address" />
+      </div>
+      <div>
+        <button id="forget-pass-btn" class="forgotpassword_button">
+          Send My Password
+        </button>
+      </div>
+    </div>
+    <script type="module" src="/js/ForgotPass.js"></script>
+
+    <!------------------------Add footer--------------------------------------->
+
+    <section class="footer">
+
+      <div class="footer-container">
+
+          <div class="row">
+
+              <ul class="footer-links">
+                  <li>
+                      <a href="#"></i>All Tags</a>
+                  </li>
+                  <li>
+                      <a href="#"></i>Account Info</a>
+                  </li>
+                  <li>
+                      <a href="#"></i>Terms and Condition</a>
+                  </li>
+                  <li style="border-right: none">
+                      <a href="#"></i>Contact Us</a>
+                  </li>
+              </ul>
+              <div class="credit"> <span> Bookish </span>copyright ©2023 all rights reserved! </div>
+
+          </div>
+      </div>
+  </section>
+  </body>
+</html>

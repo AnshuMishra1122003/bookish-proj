@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Image Upload</title>
+</head>
+
+<body>
+
+    <h1>Firebase Storage and Realtime Database Example</h1>
+    <input type="file" id="fileInput" accept="image/*">
+    <button onclick="uploadImage()">Upload Image</button>
+    <div id="imageDetails"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+        import { getDatabase, set, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+        // Replace with your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCiNLLV_8GXpvSD7IeVUfp4dbq-_pcvn7w",
+            authDomain: "bookish-proj.firebaseapp.com",
+            databaseURL: "https://bookish-proj-default-rtdb.firebaseio.com",
+            projectId: "bookish-proj",
+            storageBucket: "bookish-proj.appspot.com",
+            messagingSenderId: "351432216616",
+            appId: "1:351432216616:web:59c46450f373a82ad9251d",
+            measurementId: "G-DH4RJ9TML1"
+        };
+
+        function uploadImage() {
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+
+            const fileInput = document.getElementById("fileInput");
+            const file = fileInput.files[0];
+
+            const storage = getStorage(app); // Include the Firebase app instance
+            const storageRef = storageRef(storage, 'images/' + file.name);
+            const databaseRef = ref(getDatabase(app), 'imageDetails');
+
+            try {
+                // Upload image to Firebase Storage
+                uploadBytes(storageRef, file).then(() => {
+                    // Get download URL of the uploaded image
+                    getDownloadURL(storageRef).then(downloadURL => {
+                        // Save image details to Realtime Database
+                        const details = {
+                            name: file.name,
+                            url: downloadURL,
+                            timestamp: firebase.database.ServerValue.TIMESTAMP
+                        };
+
+                        set(databaseRef, details);
+                        alert('Image uploaded successfully!');
+                        displayImageDetails(); // Refresh the displayed details
+                    });
+                });
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
+        }
+
+        // Function to retrieve and display image details from Realtime Database
+        function displayImageDetails() {
+            const databaseRef = ref(getDatabase(), 'imageDetails');
+            const imageDetailsContainer = document.getElementById('imageDetails');
+
+            // Listen for changes in the database
+            onValue(databaseRef, (snapshot) => {
+                imageDetailsContainer.innerHTML = ''; // Clear previous details
+
+                // Loop through each image detail and display it
+                snapshot.forEach(childSnapshot => {
+                    const details = childSnapshot.val();
+                    const imageDetailElement = document.createElement('div');
+                    imageDetailElement.innerHTML = `<strong>${details.name}</strong><br>URL: ${details.url}<br><br>`;
+                    imageDetailsContainer.appendChild(imageDetailElement);
+                });
+            });
+        }
+
+        // Display image details when the page loads
+        displayImageDetails();
+    </script>
+
+</body>
+
+</html>

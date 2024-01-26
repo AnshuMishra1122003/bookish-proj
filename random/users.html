@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Sample Book</title>
+</head>
+
+<body>
+    <form id="bookForm">
+        <label for="coverImgInput">Book Cover Image:</label>
+        <input type="file" id="coverImgInput" name="coverImg" accept="image/*" required><br>
+
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required><br>
+
+        <label for="genres">Genres (comma-separated):</label>
+        <input type="text" id="genres" name="genres" required><br>
+
+        <label for="tags">Tags (comma-separated):</label>
+        <input type="text" id="tags" name="tags" required><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" required></textarea><br>
+
+        <button type="button" id="addSampleBookButton">Add Sample Book</button>
+    </form>
+
+    <!-- Display the cover image -->
+    <img id="coverImgPreview" style="max-width: 300px; max-height: 300px; margin-top: 10px;" alt="Cover Image Preview">
+
+    <script type="module" id="MainScript">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+        import { getStorage, ref as storageRef, uploadBytes } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCiNLLV_8GXpvSD7IeVUfp4dbq-_pcvn7w",
+            authDomain: "bookish-proj.firebaseapp.com",
+            databaseURL: "https://bookish-proj-default-rtdb.firebaseio.com",
+            projectId: "bookish-proj",
+            storageBucket: "bookish-proj.appspot.com",
+            messagingSenderId: "351432216616",
+            appId: "1:351432216616:web:59c46450f373a82ad9251d",
+            measurementId: "G-DH4RJ9TML1"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const storage = getStorage(app);
+
+        let storageRef;
+
+        async function addBookToDatabase(coverImgFile, title, genres, tags, description) {
+            if (!storageRef) {
+                storageRef = storageRef(storage, 'covers/' + coverImgFile.name);
+            }
+
+            await uploadBytes(storageRef, coverImgFile);
+
+            const coverImgUrl = await storageRef.getDownloadURL();
+            const booksRef = ref(getDatabase(app), 'books');
+            const newBookRef = push(booksRef);
+
+            const coverImgFileName = `cover_${Date.now()}_${coverImgFile.name}`;
+
+            set(newBookRef, {
+                coverImg: coverImgFileName,
+                title,
+                genres: genres.split(',').map(genre => genre.trim()),
+                tags: tags.split(',').map(tag => tag.trim()),
+                description,
+            });
+
+            console.log('Book details added to the database!');
+        }
+
+        document.getElementById('coverImgInput').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const preview = document.getElementById('coverImgPreview');
+                preview.src = URL.createObjectURL(file);
+            }
+        });
+
+        document.getElementById("addSampleBookButton").addEventListener("click", function () {
+            const coverImgInput = document.getElementById('coverImgInput');
+            const title = document.getElementById('title').value;
+            const genres = document.getElementById('genres').value;
+            const tags = document.getElementById('tags').value;
+            const description = document.getElementById('description').value;
+
+            if (coverImgInput.files.length > 0) {
+                const coverImgFile = coverImgInput.files[0];
+                addBookToDatabase(coverImgFile, title, genres, tags, description);
+            } else {
+                console.error('Please select a cover image file.');
+            }
+        });
+    </script>
+</body>
+
+</html>

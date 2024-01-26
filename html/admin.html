@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            background-color: #333;
+            padding: 15px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+            .navbar a {
+                color: white;
+                text-decoration: none;
+                padding: 14px 16px;
+                display: inline-block;
+            }
+
+        .navbar-toggler {
+            display: none; /* Initially hide the hamburger icon */
+            cursor: pointer;
+        }
+
+            .navbar-toggler span {
+                display: block;
+                width: 30px;
+                height: 3px;
+                background-color: white;
+                margin: 6px 0;
+                transition: 0.4s;
+            }
+
+            .navbar-toggler.open span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .navbar-toggler.open span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .navbar-toggler.open span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+        .content {
+            margin-top: 60px;
+            padding: 20px;
+        }
+
+        .sidebar {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 20px;
+        }
+
+            .sidebar a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 18px;
+                color: white;
+                display: block;
+            }
+
+                .sidebar a:hover {
+                    background-color: #555;
+                    color: white;
+                }
+
+        .submenu-content {
+            display: none;
+        }
+
+            .submenu-content.show {
+                display: block;
+            }
+
+        @media (max-width: 1034px) {
+            .navbar a:not(.navbar-toggler) {
+                display: none;
+            }
+
+            .navbar-toggler {
+                display: block; /* Display the hamburger icon in mobile view */
+            }
+
+            .sidebar.show {
+                display: block;
+            }
+
+            .submenu-content.show {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="navbar-toggler" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a href="#" onclick="toggleSubMenu('booksSubMenu')">Books</a>
+        <a href="#" onclick="toggleSubMenu('usersSubMenu')">Users</a>
+        <a href="#">Dashboard</a>
+        <a href="#">Subscription</a>
+        <!-- Add more links as needed -->
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <a href="#" onclick="toggleSubMenu('booksSubMenu')">Books</a>
+        <a href="#" onclick="toggleSubMenu('usersSubMenu')">Users</a>
+        <a href="#">Dashboard</a>
+        <a href="#">Subscription</a>
+        <!-- Add more links as needed -->
+    </div>
+
+    <div class="content">
+        <div class="submenu-content" id="booksSubMenu">
+            <button onclick="showAddBooks()">Add Books</button>
+            <button onclick="showDeleteBooks()">Delete Books</button>
+            <button onclick="showDisabledBooks()">Disabled Books</button>
+            <button onclick="showStatusOfBooks()">Status of Books</button>
+        </div>
+
+        <div class="submenu-content" id="usersSubMenu">
+            <button onclick="showAddUsers()">Add Users</button>
+            <button onclick="showDeleteUsers()">Delete Users</button>
+            <button onclick="showUpdateUsers()">Update Users</button>
+            <button onclick="showUserStatus()">User Status</button>
+        </div>
+
+        <!-- Placeholder content for the submenu items -->
+        <div id="addBooksContent" class="submenu-content">
+            <h2>Add Books</h2>
+            <p>This is the content for adding books.</p>
+        </div>
+
+        <div id="deleteBooksContent" class="submenu-content">
+            <h2>Delete Books</h2>
+            <p>This is the content for deleting books.</p>
+        </div>
+
+        <div id="disabledBooksContent" class="submenu-content">
+            <h2>Disabled Books</h2>
+            <p>This is the content for disabled books.</p>
+        </div>
+
+        <div id="statusOfBooksContent" class="submenu-content">
+            <h2>Status of Books</h2>
+            <p>This is the content for the status of books.</p>
+        </div>
+
+        <div id="addUsersContent" class="submenu-content">
+            <h2>Add Users</h2>
+            <p>This is the content for adding users.</p>
+        </div>
+
+        <div id="deleteUsersContent" class="submenu-content">
+            <h2>Delete Users</h2>
+            <p>This is the content for deleting users.</p>
+        </div>
+
+        <div id="updateUsersContent" class="submenu-content">
+            <h2>Update Users</h2>
+            <p>This is the content for updating users.</p>
+        </div>
+
+        <div id="userStatusContent" class="submenu-content">
+            <h2>User Status</h2>
+            <p>This is the content for the status of users.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+
+            var navbarToggler = document.querySelector('.navbar-toggler');
+            navbarToggler.classList.toggle('open');
+        }
+
+        function toggleSubMenu(submenuId) {
+            var allSubmenus = document.querySelectorAll('.submenu-content');
+            allSubmenus.forEach(function (submenu) {
+                if (submenu.id === submenuId) {
+                    submenu.classList.toggle('show');
+                } else {
+                    submenu.classList.remove('show');
+                }
+            });
+        }
+
+        function showAddBooks() {
+            hideAllContent();
+            document.getElementById('addBooksContent').classList.toggle('show');
+        }
+
+        function showDeleteBooks() {
+            hideAllContent();
+            document.getElementById('deleteBooksContent').classList.toggle('show');
+        }
+
+        function showDisabledBooks() {
+            hideAllContent();
+            document.getElementById('disabledBooksContent').classList.toggle('show');
+        }
+
+        function showStatusOfBooks() {
+            hideAllContent();
+            document.getElementById('statusOfBooksContent').classList.toggle('show');
+        }
+
+        function showAddUsers() {
+            hideAllContent();
+            document.getElementById('addUsersContent').classList.toggle('show');
+        }
+
+        function showDeleteUsers() {
+            hideAllContent();
+            document.getElementById('deleteUsersContent').classList.toggle('show');
+        }
+
+        function showUpdateUsers() {
+            hideAllContent();
+            document.getElementById('updateUsersContent').classList.toggle('show');
+        }
+
+        function showUserStatus() {
+            hideAllContent();
+            document.getElementById('userStatusContent').classList.toggle('show');
+        }
+
+        function hideAllContent() {
+            var contentElements = document.querySelectorAll('.submenu-content');
+            contentElements.forEach(function (element) {
+                element.classList.remove('show');
+            });
+        }
+    </script>
+
+</body>
+</html>

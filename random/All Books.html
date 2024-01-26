@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Books</title>
+  <style>
+    body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 90%;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.book {
+  display: flex;
+}
+
+.cover-img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.info-container {
+  flex: 1;
+  padding-left: 10px;
+  border-right: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.description {
+  margin-top: 5px;
+  color: #555;
+}
+
+.genre-tags-container {
+  padding-left: 10px;
+}
+
+.genres,
+.tags {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.border-line {
+  border-left: 1px solid #ccc;
+}
+
+  </style>
+</head>
+<body>
+
+<div class="container" id="bookContainer">
+  <!-- Books will be dynamically added here -->
+</div>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
+  
+// Firebase configuration (Replace with your Firebase config)
+
+const firebaseConfig = {
+            apiKey: "AIzaSyCiNLLV_8GXpvSD7IeVUfp4dbq-_pcvn7w",
+            authDomain: "bookish-proj.firebaseapp.com",
+            databaseURL: "https://bookish-proj-default-rtdb.firebaseio.com",
+            projectId: "bookish-proj",
+            storageBucket: "bookish-proj.appspot.com",
+            messagingSenderId: "351432216616",
+            appId: "1:351432216616:web:59c46450f373a82ad9251d",
+            measurementId: "G-DH4RJ9TML1"
+        };
+// Initialize Firebase
+const firebaseApp = initializeApp(firebaseConfig);
+const database = getDatabase(firebaseApp);
+
+// Function to fetch and display books
+function displayBooks() {
+  const bookContainer = document.getElementById('bookContainer');
+
+  // Assume 'books' is the node where your books are stored in Firebase
+  const booksRef = ref(database, 'books');
+
+  onValue(booksRef, (snapshot) => {
+    bookContainer.innerHTML = ''; // Clear previous content
+
+    snapshot.forEach((childSnapshot) => {
+      const bookData = childSnapshot.val();
+      const bookKey = childSnapshot.key;
+
+      // Create book element
+      const bookElement = createBookElement(bookData, bookKey);
+      bookContainer.appendChild(bookElement);
+    });
+  });
+}
+
+// Function to create a book element
+function createBookElement(bookData, bookKey) {
+  const bookElement = document.createElement('div');
+  bookElement.classList.add('book');
+
+  // Left side - Cover image
+  const coverImg = document.createElement('img');
+  coverImg.src = bookData.coverImg;
+  coverImg.alt = 'Cover';
+  coverImg.classList.add('cover-img');
+  bookElement.appendChild(coverImg);
+
+  // Center part - Title and Description
+  const infoContainer = document.createElement('div');
+  infoContainer.classList.add('info-container');
+
+  const title = document.createElement('div');
+  title.classList.add('title');
+  title.textContent = bookData.title;
+  infoContainer.appendChild(title);
+
+  const description = document.createElement('div');
+  description.classList.add('description');
+  description.textContent = bookData.description;
+  infoContainer.appendChild(description);
+
+  bookElement.appendChild(infoContainer);
+
+  // Right side - Genres and Tags
+  const genreTagsContainer = document.createElement('div');
+  genreTagsContainer.classList.add('genre-tags-container');
+
+  const genres = document.createElement('div');
+  genres.classList.add('genres');
+  genres.textContent = 'Genres: ' + bookData.genres.join(', ');
+  genreTagsContainer.appendChild(genres);
+
+  const tags = document.createElement('div');
+  tags.classList.add('tags');
+  tags.textContent = 'Tags: ' + bookData.tags.join(', ');
+  genreTagsContainer.appendChild(tags);
+
+  bookElement.appendChild(genreTagsContainer);
+
+  // Border line
+  const borderLine = document.createElement('div');
+  borderLine.classList.add('border-line');
+  bookElement.appendChild(borderLine);
+
+  return bookElement;
+}
+
+// Call the displayBooks function when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+  displayBooks();
+});
+
+
+  
+</script>
+</body>
+</html>
