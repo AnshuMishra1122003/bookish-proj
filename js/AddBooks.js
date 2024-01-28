@@ -73,6 +73,7 @@ async function submitForm(event) {
 
         // Display success message or redirect if needed
         alert("Book added successfully!");
+        window.location.href = "/html/writebooks";
 
         // Clear form fields after submission
         document.getElementById("bookTitle").value = "";

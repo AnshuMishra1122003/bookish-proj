@@ -10,8 +10,8 @@
 </head>
 
 <body>
-    <!-------------header starts------------------->
-    <header id="header" class="header">
+     <!-------------header starts------------------->
+     <header id="header" class="header">
 
         <div class="header-1">
 
@@ -22,19 +22,40 @@
                 <input type="search" id="search-box" placeholder="Search Here..." />
                 <label for="search-box" class="bx bx-search"></label>
             </form>
-
             <div class="icons">
-                <div id="search-btn"><i class='bx bx-search'></i></div>
-            </div>
-            <div>
-                <div class="icons">
-                    <div id="user-login-btn" class="user-login-btn" onclick="togglePopup()"><i
-                            class='bx bxs-user-circle'></i>
+                <div id="user-login-btn" class="user-login-btn" onclick="toggleIcon()">
+                    <i class='bx bxs-user-circle'></i>
+                </div>
+                <div id="subMenu" class="sub-menu-wrap">
+                    <div class="sub-icon">
+                        <div class="user-info">
+                            <i class='bx bxs-user-circle'></i>
+                            <span>Anshu Mishra</span>
+                        </div>
+                        <hr>
+                        <a href="#" class="sub-icon-link">
+                            <i class='bx bxs-user-circle'></i>
+                            <p>Profile</p>
+                            <span><i class='bx bx-chevron-right'></i></span>
+                        </a>
+                        <a href="#" class="sub-icon-link">
+                            <i class='bx bxs-cog'></i>
+                            <p>Settings</p>
+                            <span><i class='bx bx-chevron-right'></i></span>
+                        </a>
+                        <a href="#" class="sub-icon-link">
+                            <i class="bi bi-question-circle-fill"></i>
+                            <p>Helps & Services</p>
+                            <span><i class='bx bx-chevron-right'></i></span>
+                        </a>
+                        <a href="#" class="sub-icon-link">
+                            <i class='bx bx-log-out'></i>
+                            <p>Logout</p>
+                            <span><i class='bx bx-chevron-right'></i></span>
+                        </a>
                     </div>
                 </div>
-
             </div>
-
         </div>
         <div class="header-2">
 
@@ -44,43 +65,41 @@
                     <span class="nav-icon"></span>
                 </label>
                 <div class="menu">
-                    <a href="/index.html" class="nav-link">Home</a>
-                    <a href="#" class="nav-link">Genres</a>
-                    <a href="#" class="nav-link">History</a>
-                    <a href="html/addbook.html" class="nav-link">Profile</a>
-                    <a href="#" class="nav-link">User Settings</a>
+                    <a href="/index.html" class="nav-link" onclick="showMenu(0)">Home</a>
+                    <a href="#"  onclick="showMenu(1)">Genres</a>
+                    <a href="/html/addbook.html"  onclick="showMenu(2)">Create</a>
+                    <a href="#"  onclick="showMenu(3)">History</a>
+                    <a href="#"  onclick="showMenu(4)">User Settings</a>
+                    <a href="#"  onclick="showMenu(5)">About Us</a>
                 </div>
             </nav>
         </div>
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Get all navigation links
-                const navLinks = document.querySelectorAll(".nav-link");
-                
-                // Get the current page URL
-                const currentPage = window.location.href;
+            let subIcon = document.getElementById("subMenu");
+            function toggleIcon() {
+                subIcon.classList.toggle("open-icon");
+            }
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(){
+                const menuLinks = document.querySelectorAll("menu a");
 
-                // Add click event listener to each navigation link
-                navLinks.forEach(function (link) {
-                    // Check if the link corresponds to the current page
-                    if (currentPage.includes(link.href)) {
-                        link.classList.add("active");
-                    }
+                menuLinks.forEach(function (link, index){
+                    link.addEventListener("click", function(){
+                         // Remove 'active' class from all links
+                         menuLinks.forEach(function (menuLink){
+                            menuLink.classList.remove("active");
+                         });
+                         // Add 'active' class to the clicked link
+                         link.classList.add("active")
 
-                    link.addEventListener("click", function () {
-                        // Remove 'active' class from all links
-                        navLinks.forEach(function (navLink) {
-                            navLink.classList.remove("active");
-                        });
-
-                        // Add 'active' class to the clicked link
-                        link.classList.add("active");
+                         // Show the selected link
+                         showMenu(index);
                     });
                 });
             });
-
-            </script>
-            <!------------------navigation bar scroll--------------------->
+        </script>
+        <!------------------navigation bar scroll--------------------->
         <!-- <script>
             var prevScrollpos = window.pageYOffset;
             window.onscroll = function () {
@@ -297,31 +316,46 @@
 
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
-                    // Get all pagination links
                     const paginationLinks = document.querySelectorAll(".pagination a");
-
-                    // Get the current page URL or selected genre
-                    const currentPageOrGenre = getCurrentPageOrGenre(); // Implement your logic here
-
-                    // Add click event listener to each pagination link
+                    const wrapper = document.querySelector('.carousel-recentlyadded-wrapper');
+                    const slideWidth = document.querySelector('.carousel-recentlyadded-slide').offsetWidth;
+            
                     paginationLinks.forEach(function (link, index) {
-                        // Check if the link corresponds to the current page or selected genre
-                        if (index === currentPageOrGenre) {
-                            link.classList.add("active");
-                        }
-
                         link.addEventListener("click", function () {
                             // Remove 'active' class from all links
                             paginationLinks.forEach(function (paginationLink) {
                                 paginationLink.classList.remove("active");
                             });
-
+            
                             // Add 'active' class to the clicked link
                             link.classList.add("active");
+            
+                            // Show the selected genre
+                            showGenre(index);
                         });
                     });
                 });
-
+            
+                let currentGenre = 0;
+            
+                function showGenre(index) {
+                    const wrapper = document.querySelector('.carousel-recentlyadded-wrapper');
+                    const slideWidth = document.querySelector('.carousel-recentlyadded-slide').offsetWidth;
+            
+                    currentGenre = index;
+                    const allSlides = document.querySelectorAll('.carousel-recentlyadded-slide');
+            
+                    allSlides.forEach((slide, slideIndex) => {
+                        if (slideIndex === currentGenre) {
+                            slide.style.display = 'block';
+                        } else {
+                            slide.style.display = 'none';
+                        }
+                    });
+            
+                    // Update the transform property to show the selected genre
+                    wrapper.style.transform = `translateX(-${currentGenre * slideWidth}px)`;
+                }
             </script>
 
             <div class="carousel-recentlyadded-wrapper">
@@ -414,7 +448,7 @@
                     <div class="book-grid">
 
                         <div class="carousel-book">
-                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Action Book 1">
+                            <img class="book-cover" src="/assets/slid2.jpg" alt="Action Book 1">
                             <a href="#">
                                 <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
                             </a>
@@ -485,13 +519,13 @@
                     <div class="book-grid">
 
                         <div class="carousel-book">
-                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Adventure Book 1">
+                            <img class="book-cover" src="/assets/slid2.jpg" alt="Adventure Book 1">
                             <a href="#">
                                 <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
                             </a>
                         </div>
                         <div class="carousel-book">
-                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Adventure Book 2">
+                            <img class="book-cover" src="/assets/slid2.jpg" alt="Adventure Book 2">
                             <a href="#">
                                 <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
                             </a>
@@ -563,7 +597,7 @@
                             </a>
                         </div>
                         <div class="carousel-book">
-                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Fantasy Book 2">
+                            <img class="book-cover" src="/assets/slid2.jpg" alt="Fantasy Book 2">
                             <a href="#">
                                 <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
                             </a>
@@ -642,7 +676,7 @@
                             </a>
                         </div>
                         <div class="carousel-book">
-                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Romance Book 3">
+                            <img class="book-cover" src="/assets/slid2.jpg" alt="Romance Book 3">
                             <a href="#">
                                 <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
                             </a>
@@ -721,7 +755,7 @@
                             </a>
                         </div>
                         <div class="carousel-book">
-                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Game Book 4">
+                            <img class="book-cover" src="/assets/slid2.jpg" alt="Game Book 4">
                             <a href="#">
                                 <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
                             </a>
@@ -795,13 +829,13 @@
                             </a>
                         </div>
                         <div class="carousel-book">
-                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Urban Book 4">
+                            <img class="book-cover" src="/assets/slid2.jpg" alt="Urban Book 4">
                             <a href="#">
                                 <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
                             </a>
                         </div>
                         <div class="carousel-book">
-                            <img class="book-cover" src="/assets/sliding1.jpg" alt="Urban Book 5">
+                            <img class="book-cover" src="/assets/slid2.jpg" alt="Urban Book 5">
                             <a href="#">
                                 <h3>Lorem Ipsum fsfsdf jdsffhs dkfhfsk fhsdu kf sdfskfsf</h3>
                             </a>
@@ -846,17 +880,30 @@
             </div>
         </div>
 
-        <script>
+        <!-- <script>
             let currentGenre = 0;
-
+        
             function showGenre(index) {
                 const wrapper = document.querySelector('.carousel-recentlyadded-wrapper');
                 const slideWidth = document.querySelector('.carousel-recentlyadded-slide').offsetWidth;
-
+        
                 currentGenre = index;
+                const allSlides = document.querySelectorAll('.carousel-recentlyadded-slide');
+        
+                // Loop through all slides and set display property based on the selected genre
+                allSlides.forEach((slide, slideIndex) => {
+                    if (slideIndex === currentGenre) {
+                        slide.style.display = 'block';
+                    } else {
+                        slide.style.display = 'none';
+                    }
+                });
+        
+                // Update the transform property to show the selected genre
                 wrapper.style.transform = `translateX(-${currentGenre * slideWidth}px)`;
             }
-        </script>
+        </script> -->
+        
     </section>
     <!-- -------------------Recently Added Novels close------------------------------ -->
     <!-- Slider -->

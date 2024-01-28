@@ -6,22 +6,51 @@
     <link href="/style.css" rel="stylesheet" />
 </head>
 <body>
-    <!-------------header starts------------------->
-    <header id="header" class="header">
+      <!-------------header starts------------------->
+      <header id="header" class="header">
 
         <div class="header-1">
 
-            <a href="/index.html" class="logo">BOOKISH!!!</a>
+            <a href="/index.html" class="logo">BOOKISH</a>
 
             <form id="searchbar" action="#" class="search-form">
 
                 <input type="search" id="search-box" placeholder="Search Here..." />
                 <label for="search-box" class="bx bx-search"></label>
             </form>
-
             <div class="icons">
-                <div id="search-btn"><i class='bx bx-search'></i></div>
-                <div id="user-login-btn" class="user-login-btn"><i class='bx bxs-user-circle'></i></div>
+                <div id="user-login-btn" class="user-login-btn" onclick="toggleIcon()">
+                    <i class='bx bxs-user-circle'></i>
+                </div>
+                <div id="subMenu" class="sub-menu-wrap">
+                    <div class="sub-icon">
+                        <div class="user-info">
+                            <i class='bx bxs-user-circle'></i>
+                            <span>Anshu Mishra</span>
+                        </div>
+                        <hr>
+                        <a href="#" class="sub-icon-link">
+                            <i class='bx bxs-user-circle'></i>
+                            <p>Profile</p>
+                            <span><i class='bx bx-chevron-right'></i></span>
+                        </a>
+                        <a href="#" class="sub-icon-link">
+                            <i class='bx bxs-cog'></i>
+                            <p>Settings</p>
+                            <span><i class='bx bx-chevron-right'></i></span>
+                        </a>
+                        <a href="#" class="sub-icon-link">
+                            <i class="bi bi-question-circle-fill"></i>
+                            <p>Helps & Services</p>
+                            <span><i class='bx bx-chevron-right'></i></span>
+                        </a>
+                        <a href="#" class="sub-icon-link">
+                            <i class='bx bx-log-out'></i>
+                            <p>Logout</p>
+                            <span><i class='bx bx-chevron-right'></i></span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="header-2">
@@ -32,16 +61,42 @@
                     <span class="nav-icon"></span>
                 </label>
                 <div class="menu">
-                    <a href="/index.html" class="active">Home</a>
-                    <a href="#">Genres</a>
-                    <a href="#">History</a>
-                    <a href="#">Profile</a>
-                    <a href="#">User Settings</a>
+                    <a href="/index.html" class="nav-link" onclick="showMenu(0)">Home</a>
+                    <a href="#"  onclick="showMenu(1)">Genres</a>
+                    <a href="/html/addbook.html"  onclick="showMenu(2)">Create</a>
+                    <a href="#"  onclick="showMenu(3)">History</a>
+                    <a href="#"  onclick="showMenu(4)">User Settings</a>
+                    <a href="#"  onclick="showMenu(5)">About Us</a>
                 </div>
             </nav>
         </div>
-        <!------------------navigation bar scroll--------------------->
         <script>
+            let subIcon = document.getElementById("subMenu");
+            function toggleIcon() {
+                subIcon.classList.toggle("open-icon");
+            }
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(){
+                const menuLinks = document.querySelectorAll("menu a");
+
+                menuLinks.forEach(function (link, index){
+                    link.addEventListener("click", function(){
+                         // Remove 'active' class from all links
+                         menuLinks.forEach(function (menuLink){
+                            menuLink.classList.remove("active");
+                         });
+                         // Add 'active' class to the clicked link
+                         link.classList.add("active")
+
+                         // Show the selected link
+                         showMenu(index);
+                    });
+                });
+            });
+        </script>
+        <!------------------navigation bar scroll--------------------->
+        <!-- <script>
             var prevScrollpos = window.pageYOffset;
             window.onscroll = function () {
                 var currentScrollPos = window.pageYOffset;
@@ -52,10 +107,9 @@
                 }
                 prevScrollpos = currentScrollPos;
             }
-        </script>
+        </script> -->
     </header>
     <!---------------------Header close---------------------->
-
     
     <!--login form-->
     

@@ -1,173 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>All Books</title>
   <style>
     body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
+      margin: 0;
+      font-family: 'Times New Roman', Times, serif;
+    }
 
-.container {
-  width: 90%;
-  max-width: 400px;
-  margin: 20px auto;
-  padding: 10px;
-  border: 1px solid #ccc;
-}
+    .displaybookcontainer {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 25px;
+    }
 
-.book {
-  display: flex;
-}
+    .container-card {
+      width: 98%;
+      /* Adjust the width as needed */
+      margin: 1%;
+      /* Adjust the margin as needed */
+      height: 150px;
+      background: #dbdbdb;
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
 
-.cover-img {
-  width: 200px;
-  height: 300px;
-  object-fit: cover;
-}
+    .book {
+      display: flex;
+      margin-top: 0px;
+    }
 
-.info-container {
-  flex: 1;
-  padding-left: 10px;
-  border-right: 1px solid #ccc;
-  margin-right: 10px;
-}
+    .cover-img {
+      width: 200px;
+      height: 300px;
+      object-fit: cover;
+    }
 
-.title {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
+    .info-container {
+      flex: 1;
+      padding-left: 10px;
+      height: 148px;
+      width: 700px;
+      border-right: 1px solid #000;
+      margin-right: 10px;
+    }
 
-.description {
-  margin-top: 5px;
-  color: #555;
-}
+    .title {
+      font-size: 25px;
+      font-weight: bold;
+    }
 
-.genre-tags-container {
-  padding-left: 10px;
-}
+    .description {
+      margin-top: 5px;
+      color: #000;
+      height: 90px;
+      overflow: hidden;
+      position: relative;
+    }
 
-.genres,
-.tags {
-  font-size: 0.9rem;
-  color: #777;
-}
 
-.border-line {
-  border-left: 1px solid #ccc;
-}
+    .genre-tags-container {
+      padding-left: 10px;
+      width:200px;
+      height: 140px;
+      overflow: hidden;
+      position: relative;
+    }
+    
 
+    .genres{
+      margin-bottom: 10px;
+      font-size: 19px;
+      color: #000;
+    }
+    .tags {
+      font-size: 19px;
+      color: #000;
+    }
+
+    .border-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 1px;
+      background-color: #000;
+    }
   </style>
 </head>
+
 <body>
+  <div class="displaybookcontainer" id="bookContainer">
+    <!-- Books will be dynamically added here -->
+  </div>
 
-<div class="container" id="bookContainer">
-  <!-- Books will be dynamically added here -->
-</div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
 
+    // Firebase configuration (Replace with your Firebase config)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCiNLLV_8GXpvSD7IeVUfp4dbq-_pcvn7w",
+      authDomain: "bookish-proj.firebaseapp.com",
+      databaseURL: "https://bookish-proj-default-rtdb.firebaseio.com",
+      projectId: "bookish-proj",
+      storageBucket: "bookish-proj.appspot.com",
+      messagingSenderId: "351432216616",
+      appId: "1:351432216616:web:59c46450f373a82ad9251d",
+      measurementId: "G-DH4RJ9TML1"
+    };
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
-  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
-  
-// Firebase configuration (Replace with your Firebase config)
+    // Initialize Firebase
+    const firebaseApp = initializeApp(firebaseConfig);
+    const db = getDatabase(firebaseApp);
 
-const firebaseConfig = {
-            apiKey: "AIzaSyCiNLLV_8GXpvSD7IeVUfp4dbq-_pcvn7w",
-            authDomain: "bookish-proj.firebaseapp.com",
-            databaseURL: "https://bookish-proj-default-rtdb.firebaseio.com",
-            projectId: "bookish-proj",
-            storageBucket: "bookish-proj.appspot.com",
-            messagingSenderId: "351432216616",
-            appId: "1:351432216616:web:59c46450f373a82ad9251d",
-            measurementId: "G-DH4RJ9TML1"
-        };
-// Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-const database = getDatabase(firebaseApp);
+    // Function to fetch and display books
+    function displayBooks() {
+      const bookContainer = document.getElementById('bookContainer');
 
-// Function to fetch and display books
-function displayBooks() {
-  const bookContainer = document.getElementById('bookContainer');
+      // Assume 'books' is the node where your books are stored in Firebase
+      const booksRef = ref(db, 'books/');
 
-  // Assume 'books' is the node where your books are stored in Firebase
-  const booksRef = ref(database, 'books');
+      onValue(booksRef, (snapshot) => {
+        bookContainer.innerHTML = ''; // Clear previous content
 
-  onValue(booksRef, (snapshot) => {
-    bookContainer.innerHTML = ''; // Clear previous content
+        snapshot.forEach((childSnapshot) => {
+          const bookData = childSnapshot.val();
+          const bookKey = childSnapshot.key;
 
-    snapshot.forEach((childSnapshot) => {
-      const bookData = childSnapshot.val();
-      const bookKey = childSnapshot.key;
+          // Create book element
+          const bookElement = createBookElement(bookData, bookKey);
+          bookContainer.appendChild(bookElement);
+        });
+      });
+    }
 
-      // Create book element
-      const bookElement = createBookElement(bookData, bookKey);
-      bookContainer.appendChild(bookElement);
+    // Function to create a book element
+    function createBookElement(bookData, bookKey) {
+      const containerCard = document.createElement('div');
+      containerCard.classList.add('container-card');
+
+      const bookElement = document.createElement('div');
+      bookElement.classList.add('book');
+
+      // Left side - Cover image
+      const coverImg = document.createElement('img');
+      coverImg.src = bookData.coverImg;
+      coverImg.alt = 'Cover';
+      coverImg.classList.add('cover-img');
+      bookElement.appendChild(coverImg);
+
+      // Center part - Title and Description
+      const infoContainer = document.createElement('div');
+      infoContainer.classList.add('info-container');
+
+      const title = document.createElement('div');
+      title.classList.add('title');
+      title.textContent = bookData.title;
+      infoContainer.appendChild(title);
+
+      const description = document.createElement('div');
+      description.classList.add('description');
+      description.textContent = bookData.description;
+      infoContainer.appendChild(description);
+
+      // Border line
+      const borderLine = document.createElement('div');
+      borderLine.classList.add('border-line');
+      infoContainer.appendChild(borderLine);
+
+      bookElement.appendChild(infoContainer);
+
+      // Right side - Genres and Tags
+      const genreTagsContainer = document.createElement('div');
+      genreTagsContainer.classList.add('genre-tags-container');
+
+      const genres = document.createElement('div');
+      genres.classList.add('genres');
+      genres.textContent = 'Genres: ' + bookData.genres.join(', ');
+      genreTagsContainer.appendChild(genres);
+
+      const tags = document.createElement('div');
+      tags.classList.add('tags');
+      tags.textContent = 'Tags: ' + bookData.tags.join(', ');
+      genreTagsContainer.appendChild(tags);
+
+      bookElement.appendChild(genreTagsContainer);
+
+      containerCard.appendChild(bookElement);
+      return containerCard;
+    }
+
+    // Call the displayBooks function when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      displayBooks();
     });
-  });
-}
-
-// Function to create a book element
-function createBookElement(bookData, bookKey) {
-  const bookElement = document.createElement('div');
-  bookElement.classList.add('book');
-
-  // Left side - Cover image
-  const coverImg = document.createElement('img');
-  coverImg.src = bookData.coverImg;
-  coverImg.alt = 'Cover';
-  coverImg.classList.add('cover-img');
-  bookElement.appendChild(coverImg);
-
-  // Center part - Title and Description
-  const infoContainer = document.createElement('div');
-  infoContainer.classList.add('info-container');
-
-  const title = document.createElement('div');
-  title.classList.add('title');
-  title.textContent = bookData.title;
-  infoContainer.appendChild(title);
-
-  const description = document.createElement('div');
-  description.classList.add('description');
-  description.textContent = bookData.description;
-  infoContainer.appendChild(description);
-
-  bookElement.appendChild(infoContainer);
-
-  // Right side - Genres and Tags
-  const genreTagsContainer = document.createElement('div');
-  genreTagsContainer.classList.add('genre-tags-container');
-
-  const genres = document.createElement('div');
-  genres.classList.add('genres');
-  genres.textContent = 'Genres: ' + bookData.genres.join(', ');
-  genreTagsContainer.appendChild(genres);
-
-  const tags = document.createElement('div');
-  tags.classList.add('tags');
-  tags.textContent = 'Tags: ' + bookData.tags.join(', ');
-  genreTagsContainer.appendChild(tags);
-
-  bookElement.appendChild(genreTagsContainer);
-
-  // Border line
-  const borderLine = document.createElement('div');
-  borderLine.classList.add('border-line');
-  bookElement.appendChild(borderLine);
-
-  return bookElement;
-}
-
-// Call the displayBooks function when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-  displayBooks();
-});
-
-
-  
-</script>
+  </script>
 </body>
+
 </html>

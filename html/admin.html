@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+   
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -93,6 +94,27 @@
                 display: block;
             }
 
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+            .user-table th, .user-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .user-table th {
+                background-color: #333;
+                color: white;
+            }
+
+        .search-bar {
+            margin-bottom: 20px;
+        }
+
         @media (max-width: 1034px) {
             .navbar a:not(.navbar-toggler) {
                 display: none;
@@ -144,54 +166,50 @@
         </div>
 
         <div class="submenu-content" id="usersSubMenu">
-            <button onclick="showAddUsers()">Add Users</button>
-            <button onclick="showDeleteUsers()">Delete Users</button>
-            <button onclick="showUpdateUsers()">Update Users</button>
-            <button onclick="showUserStatus()">User Status</button>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Type your search here" oninput="searchUsers()">
+            </div>
+
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                    <!-- User data will be dynamically added here using JavaScript -->
+                </tbody>
+            </table>
+
+            <!-- Placeholder content for the submenu items -->
+            <!-- Your existing submenu content remains unchanged -->
+
+        </div>
         </div>
 
-        <!-- Placeholder content for the submenu items -->
-        <div id="addBooksContent" class="submenu-content">
-            <h2>Add Books</h2>
-            <p>This is the content for adding books.</p>
-        </div>
-
-        <div id="deleteBooksContent" class="submenu-content">
-            <h2>Delete Books</h2>
-            <p>This is the content for deleting books.</p>
-        </div>
-
-        <div id="disabledBooksContent" class="submenu-content">
-            <h2>Disabled Books</h2>
-            <p>This is the content for disabled books.</p>
-        </div>
-
-        <div id="statusOfBooksContent" class="submenu-content">
-            <h2>Status of Books</h2>
-            <p>This is the content for the status of books.</p>
-        </div>
-
-        <div id="addUsersContent" class="submenu-content">
-            <h2>Add Users</h2>
-            <p>This is the content for adding users.</p>
-        </div>
-
-        <div id="deleteUsersContent" class="submenu-content">
-            <h2>Delete Users</h2>
-            <p>This is the content for deleting users.</p>
-        </div>
-
-        <div id="updateUsersContent" class="submenu-content">
-            <h2>Update Users</h2>
-            <p>This is the content for updating users.</p>
-        </div>
-
-        <div id="userStatusContent" class="submenu-content">
-            <h2>User Status</h2>
-            <p>This is the content for the status of users.</p>
-        </div>
+    <!-- Placeholder content for the submenu items -->
+    <div id="addBooksContent" class="submenu-content">
+        <h2>Add Books</h2>
+        <p>This is the content for adding books.</p>
     </div>
 
+    <div id="deleteBooksContent" class="submenu-content">
+        <h2>Delete Books</h2>
+        <p>This is the content for deleting books.</p>
+    </div>
+
+    <div id="disabledBooksContent" class="submenu-content">
+        <h2>Disabled Books</h2>
+        <p>This is the content for disabled books.</p>
+    </div>
+
+    <div id="statusOfBooksContent" class="submenu-content">
+        <h2>Status of Books</h2>
+        <p>This is the content for the status of books.</p>
+    </div>
     <script>
         function toggleSidebar() {
             var sidebar = document.getElementById('sidebar');
@@ -259,6 +277,6 @@
             });
         }
     </script>
-
+ <script type="module" src="/js/adminpanel.js"></script>
 </body>
 </html>
