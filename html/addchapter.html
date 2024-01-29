@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Chapters (Admin)</title>
+    <link href="/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Your existing HTML code -->
+
+    <form id="addChapters" class="add_chapters" method="post">
+        <label class="addchapter_label" for="chapterTitle">Chapter Title:</label>
+        <div class="multiple-input-container">
+            <input type="text" id="chapterTitle" name="chapterTitle" placeholder="Enter Chapter Title" required />
+        </div>
+
+        <label class="addchapter_label" for="chapterPDF">Upload Chapter PDF:</label>
+        <div class="multiple-input-container">
+            <input type="file" id="chapterPDF" name="chapterPDF" accept=".pdf" required />
+        </div>
+
+        <button id="addChapters_btn" type="submit" class="add_chapters_btn">
+            Add Chapter
+        </button>
+    </form>
+
+    <!-- Display Chapters -->
+    <div id="chapterListContainer">
+        <!-- Chapters will be dynamically added here -->
+    </div>
+
+    <!-- Script Code -->
+    <script>
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
+
+// Firebase configuration (Replace with your Firebase config)
+const firebaseConfig = {
+    // Your Firebase config
+};
+
+// Initialize Firebase
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getDatabase(firebaseApp);
+
+const addChaptersForm = document.getElementById('addChapters');
+const chapterListContainer = document.getElementById('chapterListContainer');
+
+addChaptersForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const chapterTitle = document.getElementById('chapterTitle').value;
+    const chapterPDF = document.getElementById('chapterPDF').files[0];
+
+    // Upload the chapter PDF to your storage (Replace with your storage logic)
+    // ...
+
+    // Save chapter details to the database
+    const chapterRef = push(ref(db, 'chapters'), {
+        title: chapterTitle,
+        pdfUrl: 'URL_TO_UPLOADED_PDF',
+        timestamp: new Date().toLocaleString()
+    });
+
+    // Clear form inputs
+    addChaptersForm.reset();
+});
+
+// Display Chapters
+onValue(ref(db, 'chapters'), (snapshot) => {
+    const chapters = snapshot.val();
+
+    if (chapters) {
+        chapterListContainer.innerHTML = ''; // Clear previous content
+
+        Object.keys(chapters).forEach((key) => {
+            const chapter = chapters[key];
+
+            const chapterItem = document.createElement('div');
+            chapterItem.classList.add('chapter-item');
+            chapterItem.innerHTML = `<p>${chapter.title}</p><p>${chapter.timestamp}</p>`;
+
+            chapterListContainer.appendChild(chapterItem);
+        });
+    }
+});
+
+    </script>
+</body>
+
+</html>

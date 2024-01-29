@@ -20,9 +20,9 @@
     .container-card {
       width: 98%;
       /* Adjust the width as needed */
-      margin: 1%;
+      margin: 0 60px 20px 60px;
       /* Adjust the margin as needed */
-      height: 150px;
+      height: 200px;
       background: #dbdbdb;
       border-radius: 10px;
       padding: 10px;
@@ -43,7 +43,7 @@
     .info-container {
       flex: 1;
       padding-left: 10px;
-      height: 148px;
+      height: 198px;
       width: 700px;
       border-right: 1px solid #000;
       margin-right: 10px;
@@ -55,7 +55,8 @@
     }
 
     .description {
-      margin-top: 5px;
+      margin-top: 10px;
+      margin-right: 20px;
       color: #000;
       height: 90px;
       overflow: hidden;
@@ -65,15 +66,16 @@
 
     .genre-tags-container {
       padding-left: 10px;
-      width:200px;
-      height: 140px;
+      width:250px;
+      height: 180px;
       overflow: hidden;
       position: relative;
     }
     
 
     .genres{
-      margin-bottom: 10px;
+      margin-top: 20px;
+      margin-bottom: 20px;
       font-size: 19px;
       color: #000;
     }
@@ -134,6 +136,13 @@
 
           // Create book element
           const bookElement = createBookElement(bookData, bookKey);
+
+          // Add click event to open preview.html
+          bookElement.addEventListener('click', () => {
+            openPreview(bookKey);
+          });
+
+
           bookContainer.appendChild(bookElement);
         });
       });
@@ -193,6 +202,13 @@
 
       containerCard.appendChild(bookElement);
       return containerCard;
+    }
+
+     // Function to open preview.html
+     function openPreview(bookKey) {
+      // You can modify the URL as needed
+      const previewUrl = `/preview.html?bookKey=${bookKey}`;
+      window.location.href = previewUrl;
     }
 
     // Call the displayBooks function when the page loads

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Add Books (Admin)</title>
     <link href="/style.css" rel="stylesheet">
-  </head>
+</head>
 
-  <body>
-       <!-------------header starts------------------->
-       <header id="header" class="header">
+<body>
+    <!-------------header starts------------------->
+    <header id="header" class="header">
 
         <div class="header-1">
 
@@ -62,11 +63,11 @@
                 </label>
                 <div class="menu">
                     <a href="/index.html" class="nav-link" onclick="showMenu(0)">Home</a>
-                    <a href="#"  onclick="showMenu(1)">Genres</a>
-                    <a href="/html/addbook.html"  onclick="showMenu(2)">Create</a>
-                    <a href="#"  onclick="showMenu(3)">History</a>
-                    <a href="#"  onclick="showMenu(4)">User Settings</a>
-                    <a href="#"  onclick="showMenu(5)">About Us</a>
+                    <a href="#" onclick="showMenu(1)">Genres</a>
+                    <a href="/html/addbook.html" onclick="showMenu(2)">Create</a>
+                    <a href="#" onclick="showMenu(3)">History</a>
+                    <a href="#" onclick="showMenu(4)">User Settings</a>
+                    <a href="#" onclick="showMenu(5)">About Us</a>
                 </div>
             </nav>
         </div>
@@ -77,20 +78,20 @@
             }
         </script>
         <script>
-            document.addEventListener("DOMContentLoaded", function(){
+            document.addEventListener("DOMContentLoaded", function () {
                 const menuLinks = document.querySelectorAll("menu a");
 
-                menuLinks.forEach(function (link, index){
-                    link.addEventListener("click", function(){
-                         // Remove 'active' class from all links
-                         menuLinks.forEach(function (menuLink){
+                menuLinks.forEach(function (link, index) {
+                    link.addEventListener("click", function () {
+                        // Remove 'active' class from all links
+                        menuLinks.forEach(function (menuLink) {
                             menuLink.classList.remove("active");
-                         });
-                         // Add 'active' class to the clicked link
-                         link.classList.add("active")
+                        });
+                        // Add 'active' class to the clicked link
+                        link.classList.add("active")
 
-                         // Show the selected link
-                         showMenu(index);
+                        // Show the selected link
+                        showMenu(index);
                     });
                 });
             });
@@ -112,93 +113,73 @@
     <!---------------------Header close---------------------->
     <!-------------------main code------------------------------------>
     <form id="addbooks" class="add_books" method="post">
-      <div id="imageContainer">
-        <div id="placeholder">+</div>
-        <img id="uploadedImage" src="#" alt="" />
-      </div>
-      <input type="file" id="fileInput" accept=".png, .jpg" />
-      <!-- onchange="previewImage(event)" -->
-      <button
-        id="browseButton"
-        onclick="document.getElementById('fileInput').click()">
-        Browse Image
-      </button>
+        <div id="imageContainer">
+            <div id="placeholder">+</div>
+            <img id="uploadedImage" src="#" alt="" />
+        </div>
+        <input type="file" id="fileInput" accept=".png, .jpg" />
+        <!-- onchange="previewImage(event)" -->
+        <button id="browseButton" onclick="document.getElementById('fileInput').click()">
+            Browse Image
+        </button>
 
-      <label class="addbook_label" for="bookTitle">Book Title:</label>
-      <div class="multiple-input-container">
-        <input
-          type="text"
-          id="bookTitle"
-          name="bookTitle"
-          placeholder="Enter Title"
-          required
-        />
-      </div>
+        <label class="addbook_label" for="bookTitle">Book Title:</label>
+        <div class="multiple-input-container">
+            <input type="text" id="bookTitle" name="bookTitle" placeholder="Enter Title" required />
+        </div>
 
-      <label class="addbook_label"  for="genres">Genres (comma-separated):</label>
-      <div class="multiple-input-container">
-        <input
-          type="text"
-          id="genres"
-          name="genres"
-          placeholder="Enter genres"
-          required
-        />
-      </div>
+        <label class="addbook_label" for="genres">Genres (comma-separated, maximum 3):</label>
+        <div class="multiple-input-container">
+            <input type="text" id="genres" name="genres" placeholder="Enter up to 3 genres (comma-separated)" required
+                pattern="[^,]+(?:,[^,]+){0,2}" 
+            />
+        </div>
 
-      <label class="addbook_label"  for="tags">Tags (comma-separated):</label>
-      <div class="multiple-input-container">
-        <input
-          type="text"
-          id="tags"
-          name="tags"
-          placeholder="Enter tags"
-          required
-        />
-      </div>
+        <label class="addbook_label" for="tags">Tags (comma-separated, maximum 5):</label>
+        <div class="multiple-input-container">
+            <input type="text" id="tags" name="tags" placeholder="Enter up to 5 tags (comma-separated)" required
+                pattern="[^,]+(?:,[^,]+){0,4}" 
+            />
+        </div>
 
-      <label class="addbook_label"  for="description">Book Description:</label>
-      <div class="description-textarea">
-        <textarea
-          id="description"
-          name="description"
-          rows="4"
-          required
-        ></textarea>
-      </div>
-      <button id="addbooks_btn" type="submit" class="add_books_btn">
-        Add Book
-      </button>
+        <label class="addbook_label" for="description">Book Description:</label>
+        <div class="description-textarea">
+            <textarea id="description" name="description" rows="4" required></textarea>
+        </div>
+        <button id="addbooks_btn" type="submit" class="add_books_btn">
+            Add Book
+        </button>
     </form>
- <!------------------------Add footer--------------------------------------->
+    <!------------------------Add footer--------------------------------------->
 
- <section class="footer">
+    <section class="footer">
 
-  <div class="footer-container">
+        <div class="footer-container">
 
-      <div class="row">
+            <div class="row">
 
-          <ul class="footer-links">
-              <li>
-                  <a href="#"></i>All Tags</a>
-              </li>
-              <li>
-                  <a href="#"></i>Account Info</a>
-              </li>
-              <li>
-                  <a href="#"></i>Terms and Condition</a>
-              </li>
-              <li style="border-right: none">
-                  <a href="#"></i>Contact Us</a>
-              </li>
-          </ul>
-          <div class="credit"> <span> Bookish </span>copyright ©2023 all rights reserved! </div>
+                <ul class="footer-links">
+                    <li>
+                        <a href="#"></i>All Tags</a>
+                    </li>
+                    <li>
+                        <a href="#"></i>Account Info</a>
+                    </li>
+                    <li>
+                        <a href="#"></i>Terms and Condition</a>
+                    </li>
+                    <li style="border-right: none">
+                        <a href="#"></i>Contact Us</a>
+                    </li>
+                </ul>
+                <div class="credit"> <span> Bookish </span>copyright ©2023 all rights reserved! </div>
 
-      </div>
-  </div>
-</section>
+            </div>
+        </div>
+    </section>
     <!-------------------Script Code--------------------------------------->
-    <script type="module" src="/js/AddBooks.js"></script>
+    <script type="module" src="/js/addbooks.js"></script>
 
-  </body>
+</body>
+
 </html>
