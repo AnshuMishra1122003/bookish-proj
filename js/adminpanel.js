@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js';
-import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js';
+import { getDatabase, ref, set, get, remove } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCiNLLV_8GXpvSD7IeVUfp4dbq-_pcvn7w",
@@ -16,252 +16,203 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const database = getDatabase(firebaseApp);
 
-// Function to fetch users from Firebase Realtime Database
 function fetchUsers() {
     const userTableBody = document.getElementById('userTableBody');
-    userTableBody.innerHTML = ''; // Clear existing content
+    // Clear existing content
+    while (userTableBody.firstChild) {
+        userTableBody.removeChild(userTableBody.firstChild);
+    }
 
     // Assuming your users are stored in a "users" node
     const usersRef = ref(database, 'users');
 
-    onValue(usersRef, (snapshot) => {
+    get(usersRef).then((snapshot) => {
+        let serialNumber = 1; // Initialize serial number
+
         snapshot.forEach((userSnapshot) => {
-            const userId = userSnapshot.key;
             const userData = userSnapshot.val();
 
             const username = userData.username;
             const email = userData.email;
 
             // Create a table row for each user
-           
             const row = document.createElement('tr');
 
             // Create the table cells
-            //Changes made by Saurabh (used createElement to call functions instead of innerhtml)
-            const cellUserId = document.createElement('td');
-            cellUserId.textContent = userId;
-            
+            const cellSerialNumber = document.createElement('td');
+            cellSerialNumber.textContent = serialNumber++;
+
             const cellUsername = document.createElement('td');
-            cellUsername.textContent = userData.username;
-            
+            cellUsername.textContent = username;
+
             const cellEmail = document.createElement('td');
-            cellEmail.textContent = userData.email;
-            
+            cellEmail.textContent = email;
+
             const cellActions = document.createElement('td');
-            
-           
+
             const editButton = document.createElement('button');
             editButton.textContent = 'Edit';
-            editButton.addEventListener('click', function() {
-                editUser(userId);
+            editButton.addEventListener('click', function () {
+                editUser(userSnapshot.key);
             });
-            
-            
+
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Delete';
-            deleteButton.addEventListener('click', function() {
-                deleteUser(userId);
+            deleteButton.addEventListener('click', function () {
+                deleteUser(userSnapshot.key);
             });
-            
-            
+
             cellActions.appendChild(editButton);
             cellActions.appendChild(deleteButton);
-            
-            
-            row.appendChild(cellUserId);
+
+            row.appendChild(cellSerialNumber);
             row.appendChild(cellUsername);
             row.appendChild(cellEmail);
             row.appendChild(cellActions);
-            //Changes made by saurabh ENDS HERE!
+
+            // Append row to table body
             userTableBody.appendChild(row);
         });
     });
 }
-const usersSection = document.getElementById('usersSubMenu');
 
-// Function to search users based on input
 function searchUsers() {
     const searchInput = document.getElementById('searchInput').value.toLowerCase();
     const userTableBody = document.getElementById('userTableBody');
-    userTableBody.innerHTML = ''; // Clear existing content
 
-    const usersRef = ref(database,'users'); // Adjust 'users' to your actual Firebase node
-    onValue(usersRef, (snapshot) => {
+    const usersRef = ref(database, `users`);
+    get(usersRef).then((snapshot) => {
+        userTableBody.innerHTML = ''; // Clear existing content
+
         snapshot.forEach((userSnapshot) => {
             const userId = userSnapshot.key;
             const userData = userSnapshot.val();
-
             const username = userData.username.toLowerCase();
-            const email = userData.email.toLowerCase();
 
-            if (username.includes(searchInput) || email.includes(searchInput)) {
-                const row = document.createElement('tr');
+            const row = document.createElement('tr');
+            const cellUserId = document.createElement('td');
+            cellUserId.textContent = userId;
 
-                // Create the table cells
-                //Changes made by Saurabh (used createElement to call functions instead of innerhtml)
-                const cellUserId = document.createElement('td');
-                cellUserId.textContent = userId;
-                
-                const cellUsername = document.createElement('td');
-                cellUsername.textContent = userData.username;
-                
-                const cellEmail = document.createElement('td');
-                cellEmail.textContent = userData.email;
-                
-                const cellActions = document.createElement('td');
-                
-               
-                const editButton = document.createElement('button');
-                editButton.textContent = 'Edit';
-                editButton.addEventListener('click', function() {
-                    editUser(userId);
-                });
-                
-                
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Delete';
-                deleteButton.addEventListener('click', function() {
-                    deleteUser(userId);
-                });
-                
+            const cellUsername = document.createElement('td');
+            cellUsername.textContent = userData.username;
+
+            const cellEmail = document.createElement('td');
+            cellEmail.textContent = userData.email;
+
+            const cellActions = document.createElement('td');
+
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.addEventListener('click', function () {
+                editUser(userId);
+            });
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', function () {
+                deleteUser(userId);
+            });
+
+            cellActions.appendChild(editButton);
+            cellActions.appendChild(deleteButton);
+
+            row.appendChild(cellUserId);
+            row.appendChild(cellUsername);
+            row.appendChild(cellEmail);
+            row.appendChild(cellActions);
+
+            if (username.includes(searchInput)) {
                 userTableBody.appendChild(row);
             }
         });
     });
-    fetchUsers();
 }
 
-// Function to edit user details
+// Attach the searchUsers function to the input event
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', searchUsers);
+
+
 function editUser(userId) {
-    // Get the updated user details from the admin
-    const newName = prompt('Enter the new name:');
-    const newEmail = prompt('Enter the new email:');
+    // Assuming your users are stored in a "users" node
+    const userRef = ref(database, `users/${userId}`);
 
-    if (newName !== null && newEmail !== null) {
-        // Assuming your users are stored in a "users" node
-        const userRef = ref(database, `users/${userId}`);
+    // Fetch the existing user data using get
+    get(userRef)
+        .then((snapshot) => {
+            const userData = snapshot.val();
 
-        // Update the user details in the Firebase Realtime Database
-        userRef.update({
-            username: newName,
-            email: newEmail
+            // Get the updated user details from the admin
+            const newName = prompt('Enter the new name:', userData.username);
+            const newEmail = prompt('Enter the new email:', userData.email);
+
+            // Create an object to store updated fields
+            const updatedFields = {};
+
+            // Update only the specified fields
+            if (newName !== null && newName !== '') {
+                updatedFields.username = newName;
+            } else {
+                // Keep the existing value if not provided
+                updatedFields.username = userData.username;
+            }
+
+            if (newEmail !== null && newEmail !== '') {
+                updatedFields.email = newEmail;
+            } else {
+                // Keep the existing value if not provided
+                updatedFields.email = userData.email;
+            }
+
+            // Update the user details in the Firebase Realtime Database
+            set(userRef, updatedFields);
+
+            // Fetch updated users to refresh the table
+            fetchUsers();
+        })
+        .catch((error) => {
+            console.error('Error fetching user data:', error.message);
+            // Handle the error if needed
         });
-
-        // Fetch updated users to refresh the table
-        fetchUsers();
-    }
 }
 
 // Function to delete user
 function deleteUser(userId) {
-    // Implement delete user functionality using userId
-    alert('Delete user with ID ' + userId);
+    // Assuming your users are stored in a "users" node
+    const userRef = ref(database, `users/${userId}`);
+
+    // Fetch the user data for confirmation
+    get(userRef)
+        .then((snapshot) => {
+            const userData = snapshot.val();
+
+            // Confirm deletion with the admin
+            const confirmation = confirm('Are you sure you want to delete the user?\n\nUser ID: ${userId}\nUsername: ${userData.username}\nEmail: ${userData.email}');
+
+            if (confirmation) {
+                // Perform the deletion if confirmed
+                remove(userRef)
+                    .then(() => {
+                        // Successfully removed user, now fetch updated users to refresh the table
+                        fetchUsers();
+                    })
+                    .catch((error) => {
+                        console.error('Error removing user:', error.message);
+                        // Handle the error if needed
+                    });
+            }
+        })
+        .catch((error) => {
+            console.error('Error fetching user data for deletion:', error.message);
+            // Handle the error if needed
+        });
 }
 
 // Fetch users on page load
 fetchUsers();
 
-
-// import { db } from "./firebaseConfig.mjs";
-// import { ref, onValue } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js';
-
-
-// // Function to fetch users from Firebase Realtime Database
-// function fetchUsers() {
-//     const userTableBody = document.getElementById('userTableBody');
-//     userTableBody.innerHTML = ''; // Clear existing content
-
-//     // Assuming your users are stored in a "users" node
-//     const usersRef = ref(db, 'users');
-
-//     onValue(usersRef, (snapshot) => {
-//         snapshot.forEach((userSnapshot) => {
-//             const userId = userSnapshot.key;
-//             const userData = userSnapshot.val();
-
-//             const username = userData.username;
-//             const email = userData.email;
-
-//             // Create a table row for each user
-//             const row = document.createElement('tr');
-//             row.innerHTML = `
-//                 <td>${userId}</td>
-//                 <td>${userData.username}</td>
-//                 <td>${userData.email}</td>
-//                 <td>
-//                     <button onclick="editUser('${userId}')">Edit</button>
-//                     <button onclick="deleteUser('${userId}')">Delete</button>
-//                 </td>
-//             `;
-
-//             userTableBody.appendChild(row);
-//         });
-//     });
-// }
-// const usersSection = document.getElementById('usersSubMenu');
-
-// // Function to search users based on input
-// function searchUsers() {
-//     const searchInput = document.getElementById('searchInput').value.toLowerCase();
-//     const userTableBody = document.getElementById('userTableBody');
-//     userTableBody.innerHTML = ''; // Clear existing content
-
-//     const usersRef = ref(db,'users'); // Adjust 'users' to your actual Firebase node
-//     onValue(usersRef, (snapshot) => {
-//         snapshot.forEach((userSnapshot) => {
-//             const userId = userSnapshot.key;
-//             const userData = userSnapshot.val();
-
-//             const username = userData.username.toLowerCase();
-//             const email = userData.email.toLowerCase();
-
-//             if (username.includes(searchInput) || email.includes(searchInput)) {
-//                 const row = document.createElement('tr');
-//                 row.innerHTML = `
-//           <td>${userId}</td>
-//           <td>${userData.name}</td>
-//           <td>${userData.email}</td>
-//           <td>
-//             <button id="edituser-btn">Edit</button>
-//             <button onclick="deleteUser('${userId}')">Delete</button>
-//           </td>
-//         `;
-//                 userTableBody.appendChild(row);
-//             }
-//             console.log(typeof('${userId}'));
-//             document.getElementById("edituser-btn").addEventListener("click", editUser('${userId}'));
-//         });
-//         function editUser(userId) {
-//             console.log('This funtion is called')
-//             // Get the updated user details from the admin
-//             const newName = prompt('Enter the new name:');
-//             const newEmail = prompt('Enter the new email:');
-        
-//             if (newName !== null && newEmail !== null) {
-//                 // Assuming your users are stored in a "users" node
-//                 const userRef = ref(db,'users/${userId}');
-        
-//                 // Update the user details in the Firebase Realtime Database
-//                 userRef.update({
-//                     username: newName,
-//                     email: newEmail
-//                 });
-        
-//                 // Fetch updated users to refresh the table
-//                 fetchUsers();
-//             }
-//         }
-//     });
-//     fetchUsers();
-// }
-
-// // Function to edit user details
-
-// // Function to delete user
-// function deleteUser(userId) {
-//     // Implement delete user functionality using userId
-//     alert('Delete user with ID ' + userId);
-// }
-
-// // Fetch users on page load
-// fetchUsers();
+// document
+//   .getElementById("searchInput")
+//   .addEventListener("click", function (event) {
+//     searchUsers();
+//   });

@@ -27,7 +27,7 @@ async function submitForm(event) {
         const tags = tagsInput.value.split(",").map((tag) => tag.trim());
         const description = document.getElementById("description").value;
         const imageUrl =
-          document.getElementById("uploadedImage").src || "/assets/slid2.jpg";
+          document.getElementById("uploadedImage").src || "";
 
         // var file = document.getElementById("fileInput").files[0];
 
@@ -73,7 +73,7 @@ async function submitForm(event) {
 
         // Display success message or redirect if needed
         alert("Book added successfully!");
-        window.location.href = "/html/addchapter.html";
+        window.location.replace("/html/addchapter.html")
 
         // Clear form fields after submission
         document.getElementById("bookTitle").value = "";

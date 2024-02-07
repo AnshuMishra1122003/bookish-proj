@@ -36,7 +36,7 @@
 
     .cover-img {
       width: 200px;
-      height: 300px;
+      height: 200px;
       object-fit: cover;
     }
 
@@ -123,7 +123,7 @@
     // Function to fetch and display books
     function displayBooks() {
       const bookContainer = document.getElementById('bookContainer');
-
+      
       // Assume 'books' is the node where your books are stored in Firebase
       const booksRef = ref(db, 'books/');
 
@@ -158,7 +158,7 @@
 
       // Left side - Cover image
       const coverImg = document.createElement('img');
-      coverImg.src = bookData.coverImg;
+      coverImg.src = bookData.ImgUrl;
       coverImg.alt = 'Cover';
       coverImg.classList.add('cover-img');
       bookElement.appendChild(coverImg);

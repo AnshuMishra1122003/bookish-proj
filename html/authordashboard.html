@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Books</title>
+    <!-- <link href="/style.css" rel="stylesheet"> -->
+    <!-- Include your CSS stylesheets or styles here -->
+
+    <!-- Example CSS for the popup (you can customize it) -->
+    <style>
+        /* Example CSS for the sidebar */
+        .header-author-dashboard {
+            height: 40px;
+            width: auto;
+            background-color: #dbdbdb;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .header-author-dashboard a {
+            padding: 8.7px;
+            display: inline-flex;
+            text-decoration: none;
+            font-size: 20px;
+            color: black;
+        }
+
+        .header-author-dashboard a:hover {
+            background: #adadad;
+            border-radius: 2px;
+        }
+
+
+        .content {
+            display: inline-flex;
+            flex-wrap: wrap;
+            padding: 25px;
+        }
+
+        .content .book-container {
+            width: 98%;
+            height: 200px;
+            display: inline-flex;
+            margin: 0 60px 20px 60px;
+            background: #dbdbdb;
+            border-radius: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .book {
+            display: flex;
+            margin-top: 0px;
+        }
+
+        .cover-img-container {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .cover-img-container img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .content-container {
+            flex: 1;
+            padding-left: 10px;
+            height: 198px;
+            width: 700px;
+            border-right: 1px solid #000;
+            margin-right: 10px;
+        }
+
+        .content-container .title {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+
+        .content-container .description {
+            margin-top: 10px;
+            color: #000;
+            width: 650px;
+            height: 150px;
+            overflow: hidden;
+            position: relative;
+        }
+
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            /* Adjust the gap between buttons as needed */
+        }
+
+        .buttons-container button {
+            width: 100%;
+            height: 40px;
+            background-color: black;
+            text-align: center;
+            color: white;
+            border-radius: 2px;
+            padding: 10px 20px;
+            border: none;
+            text-decoration: none;
+            font-size: 19px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- <header id="header" class="header">
+
+        <div class="header-1">
+
+            <a href="/index.html" class="logo">BOOKISH</a>
+
+            <form id="searchbar" action="#" class="search-form">
+
+                <input type="search" id="search-box" placeholder="Search Here..." />
+                <label for="search-box" class="bx bx-search"></label>
+            </form>
+            <div class="icons">
+                <div id="user-login-btn" class="user-login-btn" onclick="toggleIcon()">
+                    <i class='bx bxs-user-circle'></i>
+                </div>
+                <div id="subMenu" class="sub-menu-wrap">
+                    <div class="sub-icon">
+                        <div class="user-info">
+                            <i class='bx bxs-user-circle'></i>
+                            <span>Anshu Mishra</span>
+                        </div>
+                        <hr>
+                        <a href="#" class="sub-icon-link">
+                            <i class='bx bxs-user-circle'></i>
+                            <p>Profile</p>
+                            <span><i class='bx bx-chevron-right'></i></span>
+                        </a>
+                        <a href="#" class="sub-icon-link">
+                            <i class='bx bxs-cog'></i>
+                            <p>Settings</p>
+                            <span><i class='bx bx-chevron-right'></i></span>
+                        </a>
+                        <a href="#" class="sub-icon-link">
+                            <i class="bi bi-question-circle-fill"></i>
+                            <p>Helps & Services</p>
+                            <span><i class='bx bx-chevron-right'></i></span>
+                        </a>
+                        <a href="/html/Login.html" class="sub-icon-link">
+                            <i class='bx bx-log-out'></i>
+                            <p>Logout</p>
+                            <span><i class='bx bx-chevron-right'></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-2">
+
+            <nav id="navbar" class="navbar">
+                <input class="menu-btn" type="checkbox" id="menu-btn" />
+                <label class="menu-icon" for="menu-btn">
+                    <span class="nav-icon"></span>
+                </label>
+                <div class="menu">
+                    <a href="/index.html" class="nav-link" onclick="showMenu(0)">Home</a>
+                    <a href="#" onclick="showMenu(1)">Genres</a>
+                    <a href="/html/authordashboard.html" onclick="showMenu(2)">Create</a>
+                    <a href="#" onclick="showMenu(3)">History</a>
+                    <a href="#" onclick="showMenu(4)">User Settings</a>
+                    <a href="#" onclick="showMenu(5)">About Us</a>
+                </div>
+            </nav>
+        </div>
+        <script>
+            let subIcon = document.getElementById("subMenu");
+            function toggleIcon() {
+                subIcon.classList.toggle("open-icon");
+            }
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const menuLinks = document.querySelectorAll("menu a");
+
+                menuLinks.forEach(function (link, index) {
+                    link.addEventListener("click", function () {
+                        // Remove 'active' class from all links
+                        menuLinks.forEach(function (menuLink) {
+                            menuLink.classList.remove("active");
+                        });
+                        // Add 'active' class to the clicked link
+                        link.classList.add("active")
+
+                        // Show the selected link
+                        showMenu(index);
+                    });
+                });
+            });
+        </script>
+    </header> -->
+        <div id="author-dashboard-nav" class="header-author-dashboard">
+            <a href="#" onclick="displayUserBooks()">Dashboard</a>
+            <a href="/html/addbook.html" onclick="showCreateBooks()">Create Books</a>
+            <a href="#" onclick="showIncome()">Income</a>
+            <a href="#" onclick="showProfile()">Profile</a>
+        </div>
+    <!-- Content -->
+    <div id="displayUserBooks" class="content">
+        <!-- Books will be dynamically added here -->
+    </div>
+
+    <script src="/js/authorpanel.js" type="module"></script>
+</body>
+
+</html>

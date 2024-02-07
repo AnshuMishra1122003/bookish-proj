@@ -115,7 +115,7 @@
             margin-bottom: 20px;
         }
 
-        @media (max-width: 1034px) {
+        @media (max-width: 734px) {
             .navbar a:not(.navbar-toggler) {
                 display: none;
             }
@@ -166,14 +166,13 @@
         </div>
 
         <div class="submenu-content" id="usersSubMenu">
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Type your search here" oninput="searchUsers()">
-            </div>
-
+          <div>
+            <input type="text" id="searchInput" oninput="searchUsers()" placeholder="Search by username">
+            </div> 
             <table class="user-table">
                 <thead>
                     <tr>
-                        <th>User ID</th>
+                        <th>Serial No.</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Actions</th>
