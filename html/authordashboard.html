@@ -87,8 +87,7 @@
         .content-container .description {
             margin-top: 10px;
             color: #000;
-            width: 650px;
-            height: 150px;
+            height: 90px;
             overflow: hidden;
             position: relative;
         }
@@ -103,7 +102,7 @@
 
         .buttons-container button {
             width: 100%;
-            height: 40px;
+            height: 32px;
             background-color: black;
             text-align: center;
             color: white;
@@ -111,116 +110,342 @@
             padding: 10px 20px;
             border: none;
             text-decoration: none;
-            font-size: 19px;
+            font-size: 15px;
             cursor: pointer;
         }
 
+        /* Add a class to hide the submenu content */
+        .submenu-content {
+            display: none;
+        }
+
+        /* Add a class to show the submenu content */
+        .submenu-content.show {
+            display: block;
+        }
+
+
+        /* **********Add Books************ */
+        body {
+            font-family: "Times New Roman", Times, serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .add_books {
+            width: 50%;
+            height: auto;
+            margin: 2% auto;
+            padding: 1.5%;
+            border-radius: 8px;
+            background-color: #27ae60;
+        }
+
+        #imageContainer {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-left: 230px;
+            margin-top: 50px;
+            background: #fff;
+            border: 2px dashed #000;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #uploadedImage {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        #placeholder {
+            font-size: 100px;
+            font-weight: 600;
+            color: #000;
+        }
+
+        #browseButton {
+            margin-top: 10px;
+            margin-left: 270px;
+            cursor: pointer;
+            padding: 8px 16px;
+            background: #fff;
+            border: none;
+            height: 45px;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            color: #000;
+            font-weight: 600;
+        }
+
+        #browseButton:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        /* For the genres and tags input, you can use a container to allow multiple inputs */
+
+        .addbook_label {
+            display: block;
+            margin-bottom: 0px;
+            font-size: 20px;
+            font-weight: 300;
+        }
+
+        .multiple-input-container {
+            display: flex;
+            flex-wrap: wrap;
+            position: relative;
+            width: 100%;
+            height: 20px;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .multiple-input-container input {
+            flex-grow: 1;
+            margin-right: 8px;
+            width: 100%;
+            height: 5px;
+            background: white;
+            border: none;
+            outline: none;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 40px;
+            font-size: 16px;
+            color: black;
+            padding: 20px 45px 20px 20px;
+        }
+
+        .description-textarea {
+            resize: none;
+            min-height: 70px;
+            max-height: 200px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 40px;
+            font-size: 18px;
+            color: black;
+            padding: 20px 45px 20px 20px;
+        }
+
+        .add_books_btn {
+            width: 100%;
+            height: 45px;
+            background: #fff;
+            margin-top: 20px;
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+            padding: 10px;
+        }
+
+        .add_books_btn:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .add_books {
+                width: 80%;
+            }
+
+            #imageContainer {
+                margin: 20px auto;
+            }
+
+            #browseButton {
+                margin-left: 38%;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- <header id="header" class="header">
-
-        <div class="header-1">
-
-            <a href="/index.html" class="logo">BOOKISH</a>
-
-            <form id="searchbar" action="#" class="search-form">
-
-                <input type="search" id="search-box" placeholder="Search Here..." />
-                <label for="search-box" class="bx bx-search"></label>
-            </form>
-            <div class="icons">
-                <div id="user-login-btn" class="user-login-btn" onclick="toggleIcon()">
-                    <i class='bx bxs-user-circle'></i>
-                </div>
-                <div id="subMenu" class="sub-menu-wrap">
-                    <div class="sub-icon">
-                        <div class="user-info">
-                            <i class='bx bxs-user-circle'></i>
-                            <span>Anshu Mishra</span>
-                        </div>
-                        <hr>
-                        <a href="#" class="sub-icon-link">
-                            <i class='bx bxs-user-circle'></i>
-                            <p>Profile</p>
-                            <span><i class='bx bx-chevron-right'></i></span>
-                        </a>
-                        <a href="#" class="sub-icon-link">
-                            <i class='bx bxs-cog'></i>
-                            <p>Settings</p>
-                            <span><i class='bx bx-chevron-right'></i></span>
-                        </a>
-                        <a href="#" class="sub-icon-link">
-                            <i class="bi bi-question-circle-fill"></i>
-                            <p>Helps & Services</p>
-                            <span><i class='bx bx-chevron-right'></i></span>
-                        </a>
-                        <a href="/html/Login.html" class="sub-icon-link">
-                            <i class='bx bx-log-out'></i>
-                            <p>Logout</p>
-                            <span><i class='bx bx-chevron-right'></i></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="header-2">
-
-            <nav id="navbar" class="navbar">
-                <input class="menu-btn" type="checkbox" id="menu-btn" />
-                <label class="menu-icon" for="menu-btn">
-                    <span class="nav-icon"></span>
-                </label>
-                <div class="menu">
-                    <a href="/index.html" class="nav-link" onclick="showMenu(0)">Home</a>
-                    <a href="#" onclick="showMenu(1)">Genres</a>
-                    <a href="/html/authordashboard.html" onclick="showMenu(2)">Create</a>
-                    <a href="#" onclick="showMenu(3)">History</a>
-                    <a href="#" onclick="showMenu(4)">User Settings</a>
-                    <a href="#" onclick="showMenu(5)">About Us</a>
-                </div>
-            </nav>
-        </div>
-        <script>
-            let subIcon = document.getElementById("subMenu");
-            function toggleIcon() {
-                subIcon.classList.toggle("open-icon");
-            }
-        </script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const menuLinks = document.querySelectorAll("menu a");
-
-                menuLinks.forEach(function (link, index) {
-                    link.addEventListener("click", function () {
-                        // Remove 'active' class from all links
-                        menuLinks.forEach(function (menuLink) {
-                            menuLink.classList.remove("active");
-                        });
-                        // Add 'active' class to the clicked link
-                        link.classList.add("active")
-
-                        // Show the selected link
-                        showMenu(index);
-                    });
-                });
-            });
-        </script>
-    </header> -->
+    <div class="navbar">
         <div id="author-dashboard-nav" class="header-author-dashboard">
-            <a href="#" onclick="displayUserBooks()">Dashboard</a>
-            <a href="/html/addbook.html" onclick="showCreateBooks()">Create Books</a>
-            <a href="#" onclick="showIncome()">Income</a>
-            <a href="#" onclick="showProfile()">Profile</a>
+            <!-- Add onclick events to the navigation links -->
+            <a href="#" onclick="toggleSubMenu('books')">Dashboard</a>
+            <a href="#" onclick="toggleSubMenu('create-books-container')">Create Books</a>
+            <a href="#" onclick="toggleSubMenu('income')">Income</a>
+            <a href="#" onclick="toggleSubMenu('profile')">Profile</a>
         </div>
+    </div>
     <!-- Content -->
-    <div id="displayUserBooks" class="content">
-        <!-- Books will be dynamically added here -->
+    <div class="submenu-content" id="books">
+        <div id="displayUserBooks" class="content">
+            <!-- Books will be dynamically added here -->
+        </div>
     </div>
 
+    <div class="submenu-content" id="create-books-container">
+        <form id="addbooks" class="add_books" method="post">
+            <div id="imageContainer">
+                <div id="placeholder">+</div>
+                <img id="uploadedImage" src="#" alt="" />
+            </div>
+            <input type="file" id="fileInput" accept=".png, .jpg" />
+            <!-- onchange="previewImage(event)" -->
+            <button id="browseButton" onclick="document.getElementById('fileInput').click()">
+                Browse Image
+            </button>
+
+            <label class="addbook_label" for="bookTitle">Book Title:</label>
+            <div class="multiple-input-container">
+                <input type="text" id="bookTitle" name="bookTitle" placeholder="Enter Title" required />
+            </div>
+
+            <label class="addbook_label" for="genres">Genres (comma-separated, maximum 3):</label>
+            <div class="multiple-input-container">
+                <input type="text" id="genres" name="genres" placeholder="Enter up to 3 genres (comma-separated)"
+                    required pattern="[^,]+(?:,[^,]+){0,2}" />
+            </div>
+
+            <label class="addbook_label" for="tags">Tags (comma-separated, maximum 5):</label>
+            <div class="multiple-input-container">
+                <input type="text" id="tags" name="tags" placeholder="Enter up to 5 tags (comma-separated)" required
+                    pattern="[^,]+(?:,[^,]+){0,4}" />
+            </div>
+
+            <label class="addbook_label" for="description">Book Description:</label>
+            <div class="description-textarea">
+                <textarea id="description" name="description" rows="10" cols="80" required></textarea>
+            </div>
+            <button id="addbooks_btn" type="submit" class="add_books_btn">
+                Add Book
+            </button>
+        </form>
+
+    </div>
+
+    <!-- edit books -->
+    <div class="submenu-content" id="create-books-container">
+        <form id="editBookForm" class="add_books" method="post">
+            <div id="imageContainer">
+                <div id="placeholder">+</div>
+                <img id="uploadedImage" src="#" alt="" />
+            </div>
+            <input type="file" id="fileInput" accept=".png, .jpg" onchange="previewImage(event)" />
+            <button id="browseButton" onclick="document.getElementById('fileInput').click()">
+                Browse Image
+            </button>
+
+            <label class="addbook_label" for="bookTitle">Book Title:</label>
+            <div class="multiple-input-container">
+                <input type="text" id="bookTitle" name="bookTitle" placeholder="Enter Title" required />
+            </div>
+
+            <label class="addbook_label" for="genres">Genres (comma-separated, maximum 3):</label>
+            <div class="multiple-input-container">
+                <input type="text" id="genres" name="genres" placeholder="Enter up to 3 genres (comma-separated)" />
+            </div>
+
+            <label class="addbook_label" for="tags">Tags (comma-separated, maximum 5):</label>
+            <div class="multiple-input-container">
+                <input type="text" id="tags" name="tags" placeholder="Enter up to 5 tags (comma-separated)" />
+            </div>
+
+            <label class="addbook_label" for="description">Book Description:</label>
+            <div class="description-textarea">
+                <textarea id="description" name="description" rows="10" cols="80" required></textarea>
+            </div>
+            <button id="editBookBtn" type="submit" class="add_books_btn">
+                Save Changes
+            </button>
+        </form>
+
+    </div>
+
+
+    <div>
+        <form id="addChapterForm" class="add_chapter" method="post">
+            <label class="addchapter_label" for="title">Chapter Title:</label>
+            <div class="multiple-input-container">
+                <input type="text" id="chapterTitle" name="title" placeholder="Enter Chapter Title" required />
+            </div>
+
+            <label class="addchapter_label" for="content">Chapter Content:</label>
+            <div class="description-textarea">
+                <textarea id="chapterContent" name="content" rows="10" cols="80" required></textarea>
+            </div>
+
+            <button id="addChapterBtn" type="submit" class="add_chapter_btn">
+                Add Chapter
+            </button>
+        </form>
+
+        <div id="sidebar" class="sidebar">
+            <h2>Chapter Titles</h2>
+            <ul id="chapterList"></ul>
+        </div>
+
+        <div id="chapterDisplay" class="chapter-display">
+            <h2>Chapter Content</h2>
+            <div id="contentDisplay"></div>
+        </div>
+    </div>
+
+
     <script src="/js/authorpanel.js" type="module"></script>
+    <script>
+        // JavaScript function to toggle submenu content
+        function toggleSubMenu(submenuId) {
+            var allSubmenus = document.querySelectorAll('.submenu-content');
+            allSubmenus.forEach(function (submenu) {
+                if (submenu.id === submenuId) {
+                    submenu.classList.toggle('show');
+                } else {
+                    submenu.classList.remove('show');
+                }
+            });
+        }
+
+        // Function to preview the selected image
+        function previewImage(event) {
+            const fileInput = event.target;
+            const file = fileInput.files[0];
+
+            const uploadedImage = document.getElementById("uploadedImage");
+            const imageContainer = document.getElementById("imageContainer");
+            const placeholder = document.getElementById("placeholder");
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imageContainer.style.background = "none";
+                    placeholder.style.display = "none";
+                    uploadedImage.style.display = "block";
+                    uploadedImage.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                imageContainer.style.background = "#fff";
+                placeholder.style.display = "block";
+                uploadedImage.style.display = "none";
+                uploadedImage.src = "#"; // Reset the image source
+            }
+        }
+    </script>
+
 </body>
 
 </html>

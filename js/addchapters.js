@@ -7,7 +7,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
 
 // Function to handle form submission
-async function submitForm(event) {
+async function submitForm(event, bookId) { // Receive the book ID as a parameter
   event.preventDefault();
 
   try {
@@ -15,15 +15,13 @@ async function submitForm(event) {
       if (user) {
         const email = user?.email;
 
-        const bookTitle = "Your_Book_Title";
         const chapterTitle = document.getElementById("chapterTitle").value;
         const chapterContent = document.getElementById("chapterContent").value;
 
-        // Save chapter details to the database under the /chapters node
-        const chapterRef = push(ref(db, `chapters`), {
-          username: email, // Assuming you want to use the email as the username
+        // Save chapter details to the database under the /books/{bookId}/chapters node
+        const chapterRef = push(ref(db, `books/${bookId}/chapters`), { // Use the provided book ID
+          username: email,
           email: email,
-          bookTitle: bookTitle,
           title: chapterTitle,
           content: chapterContent,
           timestamp: new Date().toLocaleString(),
@@ -31,11 +29,9 @@ async function submitForm(event) {
 
         console.log(chapterRef);
 
-        await set(ref(db, `chapters/${chapterRef.key}`), {
-          // Instead of storing the reference, store the actual chapter data
+        await set(ref(db, `books/${bookId}/chapters/${chapterRef.key}`), {
           username: email,
           email: email,
-          bookTitle: bookTitle,
           title: chapterTitle,
           content: chapterContent,
           timestamp: new Date().toLocaleString(),
@@ -59,6 +55,6 @@ async function submitForm(event) {
 document
   .getElementById("addChapterBtn")
   .addEventListener("click", function (event) {
-    submitForm(event);
+    const bookId = "Your_Book_ID"; // Replace with the actual book ID
+    submitForm(event, bookId); // Pass the book ID to the submitForm function
   });
-
