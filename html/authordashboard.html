@@ -88,6 +88,7 @@
             margin-top: 10px;
             color: #000;
             height: 90px;
+            width: 690px;
             overflow: hidden;
             position: relative;
         }
@@ -274,6 +275,14 @@
                 margin-left: 38%;
             }
         }
+
+        #editBookForm {
+            display: none;
+        }
+
+        #add-chapters-container {
+            display: none;
+        }
     </style>
 </head>
 
@@ -336,37 +345,37 @@
     </div>
 
     <!-- edit books -->
-    <div class="submenu-content" id="create-books-container">
+    <div class="submenu-content" id="edit-books-container">
         <form id="editBookForm" class="add_books" method="post">
-            <div id="imageContainer">
-                <div id="placeholder">+</div>
-                <img id="uploadedImage" src="#" alt="" />
+            <div id="editImageContainer">
+                <div id="editplaceholder">+</div>
+                <img id="edituploadedImage" src="#" alt="" />
             </div>
-            <input type="file" id="fileInput" accept=".png, .jpg" onchange="previewImage(event)" />
-            <button id="browseButton" onclick="document.getElementById('fileInput').click()">
+            <input type="file" id="editfileInput" accept=".png, .jpg" onchange="previewImage(event)" />
+            <button id="editbrowseButton" onclick="document.getElementById('fileInput').click()">
                 Browse Image
             </button>
 
             <label class="addbook_label" for="bookTitle">Book Title:</label>
             <div class="multiple-input-container">
-                <input type="text" id="bookTitle" name="bookTitle" placeholder="Enter Title" required />
+                <input type="text" id="editbookTitle" name="bookTitle" placeholder="Enter Title" required />
             </div>
 
             <label class="addbook_label" for="genres">Genres (comma-separated, maximum 3):</label>
             <div class="multiple-input-container">
-                <input type="text" id="genres" name="genres" placeholder="Enter up to 3 genres (comma-separated)" />
+                <input type="text" id="editgenres" name="genres" placeholder="Enter up to 3 genres (comma-separated)" />
             </div>
 
             <label class="addbook_label" for="tags">Tags (comma-separated, maximum 5):</label>
             <div class="multiple-input-container">
-                <input type="text" id="tags" name="tags" placeholder="Enter up to 5 tags (comma-separated)" />
+                <input type="text" id="edittags" name="tags" placeholder="Enter up to 5 tags (comma-separated)" />
             </div>
 
             <label class="addbook_label" for="description">Book Description:</label>
             <div class="description-textarea">
-                <textarea id="description" name="description" rows="10" cols="80" required></textarea>
+                <textarea id="editdescription" name="description" rows="10" cols="80" required></textarea>
             </div>
-            <button id="editBookBtn" type="submit" class="add_books_btn">
+            <button id="saveChangesBookBtn" type="submit" class="add_books_btn">
                 Save Changes
             </button>
         </form>
@@ -374,7 +383,7 @@
     </div>
 
 
-    <div>
+    <div id="add-chapters-container">
         <form id="addChapterForm" class="add_chapter" method="post">
             <label class="addchapter_label" for="title">Chapter Title:</label>
             <div class="multiple-input-container">

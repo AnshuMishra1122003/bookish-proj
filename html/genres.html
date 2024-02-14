@@ -19,9 +19,7 @@
 
     .container-card {
       width: 98%;
-      /* Adjust the width as needed */
       margin: 0 60px 20px 60px;
-      /* Adjust the margin as needed */
       height: 200px;
       background: #dbdbdb;
       border-radius: 10px;
@@ -63,22 +61,21 @@
       position: relative;
     }
 
-
     .genre-tags-container {
       padding-left: 10px;
-      width:250px;
+      width: 250px;
       height: 180px;
       overflow: hidden;
       position: relative;
     }
-    
 
-    .genres{
+    .genres {
       margin-top: 20px;
       margin-bottom: 20px;
       font-size: 19px;
       color: #000;
     }
+
     .tags {
       font-size: 19px;
       color: #000;
@@ -123,7 +120,7 @@
     // Function to fetch and display books
     function displayBooks() {
       const bookContainer = document.getElementById('bookContainer');
-      
+
       // Assume 'books' is the node where your books are stored in Firebase
       const booksRef = ref(db, 'books/');
 
@@ -132,16 +129,15 @@
 
         snapshot.forEach((childSnapshot) => {
           const bookData = childSnapshot.val();
-          const bookKey = childSnapshot.key;
+          const bookId = childSnapshot.key;
 
           // Create book element
-          const bookElement = createBookElement(bookData, bookKey);
+          const bookElement = createBookElement(bookData, bookId);
 
           // Add click event to open preview.html
           bookElement.addEventListener('click', () => {
-            openPreview(bookKey);
+            openPreview(bookId);
           });
-
 
           bookContainer.appendChild(bookElement);
         });
@@ -149,7 +145,7 @@
     }
 
     // Function to create a book element
-    function createBookElement(bookData, bookKey) {
+    function createBookElement(bookData, bookId) {
       const containerCard = document.createElement('div');
       containerCard.classList.add('container-card');
 
@@ -204,10 +200,11 @@
       return containerCard;
     }
 
-     // Function to open preview.html
-     function openPreview(bookKey) {
-      // You can modify the URL as needed
-      const previewUrl = `/html/previewpage.html?bookKey=${bookKey}`;
+    // Function to open preview.html
+    function openPreview(bookId) {
+      // Construct the URL with bookId as a URL parameter
+      const previewUrl = `/html/previewpage.html?bookId=${bookId}`;
+      // Redirect to the preview page
       window.location.href = previewUrl;
     }
 

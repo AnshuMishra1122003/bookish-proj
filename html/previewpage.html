@@ -70,12 +70,12 @@
         }
 
         .button-container {
-            display:grid;
+            display: grid;
             margin-left: -10px;
             margin-top: 10px;
         }
 
-        .button-container button{
+        .button-container button {
             margin: 10px;
             width: 225px;
             height: 50px;
@@ -86,10 +86,10 @@
             align-items: center;
         }
 
-        .button-container button:hover{
+        .button-container button:hover {
             cursor: pointer;
             background: var(--green);
-        } 
+        }
 
         .descript-container {
             width: auto;
@@ -129,140 +129,7 @@
             <!-- Book details will be dynamically added here -->
         </div>
     </div>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
-
-        // Firebase configuration (Replace with your Firebase config)
-        const firebaseConfig = {
-            apiKey: "AIzaSyCiNLLV_8GXpvSD7IeVUfp4dbq-_pcvn7w",
-            authDomain: "bookish-proj.firebaseapp.com",
-            databaseURL: "https://bookish-proj-default-rtdb.firebaseio.com",
-            projectId: "bookish-proj",
-            storageBucket: "bookish-proj.appspot.com",
-            messagingSenderId: "351432216616",
-            appId: "1:351432216616:web:59c46450f373a82ad9251d",
-            measurementId: "G-DH4RJ9TML1"
-        };
-
-        // Initialize Firebase
-        const firebaseApp = initializeApp(firebaseConfig);
-        const db = getDatabase(firebaseApp);
-
-        // Function to fetch and display book details
-        function displayBookDetails(bookKey) {
-            const bookDetailsContainer = document.getElementById('bookDetailsContainer');
-
-            // Assume 'books' is the node where your books are stored in Firebase
-            const bookRef = ref(db, `books/${bookKey}`);
-
-            onValue(bookRef, (snapshot) => {
-                const bookData = snapshot.val();
-
-                const mainbookContainer = document.createElement('div');
-                mainbookContainer.classList.add('mainbook-container');
-
-                const coverImg = document.createElement('img');
-                coverImg.src = '/assets/slid2.jpg';
-                coverImg.alt = 'Cover';
-                coverImg.classList.add('cover-img');
-
-                // Create title container
-                const titleContainer = document.createElement('div');
-                titleContainer.classList.add('title-container');
-
-                const title = document.createElement('div');
-                title.classList.add('title');
-                title.textContent = bookData.title;
-
-                // Genres and tags
-                const genres = document.createElement('div');
-                genres.classList.add('genres');
-                genres.textContent = `Genres: ${bookData.genres.join(', ')}`;
-
-                const tags = document.createElement('div');
-                tags.classList.add('tags');
-                tags.textContent = `Tags: ${bookData.tags.join(', ')}`;
-
-                titleContainer.appendChild(title);
-                titleContainer.appendChild(genres);
-                titleContainer.appendChild(tags);
-
-                mainbookContainer.appendChild(coverImg);
-                mainbookContainer.appendChild(titleContainer);
-
-                // Create button container
-                const buttonContainer = document.createElement('div');
-                buttonContainer.classList.add('button-container');
-
-                // Create "Read Now" button
-                const readNowButton = document.createElement('button');
-                readNowButton.textContent = 'Read Now';
-                readNowButton.addEventListener('click', () => {
-                    // Navigate to readnow.html
-                    window.location.href = 'readnow.html?bookKey=' + bookKey;
-                });
-
-                // Create "Bookmark" button
-                const bookmarkButton = document.createElement('button');
-                bookmarkButton.innerHTML = '<i class="bx bxs-bookmark"></i>';
-                bookmarkButton.addEventListener('click', () => {
-                    // Navigate to bookmark.html
-                    window.location.href = 'bookmark.html?bookKey=' + bookKey;
-                });
-
-                buttonContainer.appendChild(readNowButton);
-                buttonContainer.appendChild(bookmarkButton);
-
-
-                const descriptContainer = document.createElement('div');
-                descriptContainer.classList.add('descript-container');
-
-                // Description
-                const description = document.createElement('div');
-                description.classList.add('description');
-                description.textContent = bookData.description;
-
-                descriptContainer.appendChild(description);
-
-                // Append elements to the container
-                bookDetailsContainer.innerHTML = ''; // Clear previous content
-                bookDetailsContainer.appendChild(mainbookContainer);
-                bookDetailsContainer.appendChild(buttonContainer);
-                bookDetailsContainer.appendChild(descriptContainer);
-
-                // Add pagination for chapters
-                // if (bookData.chapters) {
-                //     const pagination = document.createElement('div');
-                //     pagination.classList.add('pagination');
-
-                //     for (const chapter of bookData.chapters) {
-                //         const chapterElement = document.createElement('div');
-                //         chapterElement.classList.add('chapter');
-                //         chapterElement.textContent = `Chapter ${chapter.number}: ${chapter.title}`;
-                //         pagination.appendChild(chapterElement);
-                //     }
-
-                //     bookDetailsContainer.appendChild(pagination);
-                // }
-            });
-        }
-
-        // Call the displayBookDetails function when the page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            // Extract the book key from the URL query parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            const bookKey = urlParams.get('bookKey');
-
-            if (bookKey) {
-                displayBookDetails(bookKey);
-            } else {
-                // Handle case where book key is not provided
-                console.error('Book key not found in URL parameters');
-            }
-        });
-    </script>
+    <script src="/js/previewpage.js" type="module"></script>
 </body>
 
 </html>
