@@ -91,12 +91,56 @@
             background: var(--green);
         }
 
+        .chapter-details{
+
+        }
+
+        .chapters-text-container,
+        .descript-text-container {
+            width: 49.3%;
+            height: 50px;
+            cursor: pointer;
+            background: #333;
+            color: #dbdbdb;
+            border: none;
+            font-size: 20px;
+            border-radius: 5px;
+            padding: 8px 15px;
+            margin-top: 20px;
+        }
+
+
+        .chapters-text-container {
+            margin-left: 10px;
+        }
+
+        .chapters-text-container:hover{
+            cursor: pointer;
+            background: var(--green);
+        }
+        .descript-text-container:hover{
+            cursor: pointer;
+            background: var(--green);
+        }
+
+         .chapter-list-item {
+            height: 50px;
+            width:98%;
+            font-size: 22px;
+            padding:  14px 10px;
+            justify-items: center;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+
         .descript-container {
             width: auto;
             height: 100%;
             display: block;
             text-align: left;
-            margin-top: 100px;
+            margin-top: 10px;
             padding: 20px;
             border-radius: 10px;
             background: #ccb9b9;
@@ -119,6 +163,13 @@
         .chapter {
             flex: 1;
             margin-right: 10px;
+        }
+
+        .no-data{
+            margin: 100px;
+            display: block;
+            text-align: center;
+            font-size: 25px;
         }
     </style>
 </head>

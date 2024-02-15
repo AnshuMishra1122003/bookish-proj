@@ -154,6 +154,24 @@
                 margin-left: 38%;
             }
         }
+
+        .genre-chkbx {
+            display: flex;
+            flex-wrap: wrap;
+            font-size: large;
+        }
+
+        .genre-chkbx label {
+            margin-right: 20px;
+            /* Adjust as needed */
+            margin-bottom: 10px;
+            /* Adjust as needed */
+        }
+
+        .genre-chkbx input[type="checkbox"] {
+            margin-right: 5px;
+            /* Adjust as needed */
+        }
     </style>
 </head>
 
@@ -280,9 +298,16 @@
                 <input type="text" id="editbookTitle" name="bookTitle" placeholder="Enter Title" required />
             </div>
 
-            <label class="addbook_label" for="genres">Genres (comma-separated, maximum 3):</label>
-            <div class="multiple-input-container">
-                <input type="text" id="editgenres" name="genres" placeholder="Enter up to 3 genres (comma-separated)" />
+            <label class="addbook_label" for="genre">Genres:</label>
+            <!-- Add checkboxes for genres -->
+            <div class="genre-chkbx">
+                <label><input type="checkbox" name="genre" value="urban"> Urban</label>
+                <label><input type="checkbox" name="genre" value="fantasy"> Fantasy</label>
+                <label><input type="checkbox" name="genre" value="eastern"> Eastern</label>
+                <label><input type="checkbox" name="genre" value="games"> Games</label>
+                <label><input type="checkbox" name="genre" value="sci-fi"> Sci-Fi</label>
+                <label><input type="checkbox" name="genre" value="horror"> Horror</label>
+                <label><input type="checkbox" name="genre" value="action"> Action</label>
             </div>
 
             <label class="addbook_label" for="tags">Tags (comma-separated, maximum 5):</label>

@@ -50,7 +50,9 @@ async function submitForm(event, bookId) {
 
         // Display success message or redirect if needed
         alert("Chapter added successfully!");
-        window.location.replace("/html/addchapter.html");
+        window.location.href = `/html/addchapter.html?bookId=${encodeURIComponent(
+          bookId
+        )}`;
       }
     });
   } catch (error) {

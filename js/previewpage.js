@@ -20,9 +20,10 @@ function displayBookDetails(bookId) {
     mainbookContainer.classList.add("mainbook-container");
 
     const coverImg = document.createElement("img");
-    coverImg.src = "/assets/slid2.jpg";
     coverImg.alt = "Cover";
     coverImg.classList.add("cover-img");
+    // Set coverImg source dynamically from localhost
+    coverImg.src = `http://localhost/covers/${bookId}.jpg`;
 
     // Create title container
     const titleContainer = document.createElement("div");
@@ -56,8 +57,8 @@ function displayBookDetails(bookId) {
     const readNowButton = document.createElement("button");
     readNowButton.textContent = "Read Now";
     readNowButton.addEventListener("click", () => {
-      // Navigate to readnow.html
-      window.location.href = "readnow.html?bookId=" + bookId;
+      // Navigate to displaychapters.html with bookId parameter
+      window.location.href = `displaychapters.html?bookId=${bookId}`;
     });
 
     // Create "Bookmark" button
@@ -70,6 +71,14 @@ function displayBookDetails(bookId) {
 
     buttonContainer.appendChild(readNowButton);
     buttonContainer.appendChild(bookmarkButton);
+
+    const descriptTextContainer = document.createElement("button");
+    descriptTextContainer.classList.add("descript-text-container");
+    descriptTextContainer.textContent = "Synopsis";
+
+    const chapterTextContainer = document.createElement("button");
+    chapterTextContainer.classList.add("chapters-text-container");
+    chapterTextContainer.textContent = "Chapters";
 
     const descriptContainer = document.createElement("div");
     descriptContainer.classList.add("descript-container");
@@ -85,7 +94,78 @@ function displayBookDetails(bookId) {
     bookDetailsContainer.innerHTML = ""; // Clear previous content
     bookDetailsContainer.appendChild(mainbookContainer);
     bookDetailsContainer.appendChild(buttonContainer);
+    bookDetailsContainer.appendChild(descriptTextContainer);
+    bookDetailsContainer.appendChild(chapterTextContainer);
     bookDetailsContainer.appendChild(descriptContainer);
+
+    // Display chapters container initially as default
+    const chaptersContainer = document.createElement("div");
+    chaptersContainer.id = "chaptersContainer";
+    chaptersContainer.style.display = "none"; // Hide chapters initially
+
+    bookDetailsContainer.appendChild(chaptersContainer);
+
+    // Function to toggle between showing description and chapters
+    function toggleDescriptionAndChapters() {
+      if (this === descriptTextContainer) {
+        descriptContainer.style.display = "block";
+        chaptersContainer.style.display = "none";
+        descriptTextContainer.textContent = "Synopsis";
+        chapterTextContainer.textContent = "Chapters";
+      } else {
+        descriptContainer.style.display = "none";
+        chaptersContainer.style.display = "block";
+        displayChapters();
+        descriptTextContainer.textContent = "Synopsis";
+      }
+    }
+
+    // Function to display chapters
+    async function displayChapters() {
+      try {
+        const chaptersRef = ref(db, `books/${bookId}/chapters`);
+        const snapshot = await get(chaptersRef);
+        const chapters = snapshot.val();
+
+        chaptersContainer.innerHTML = ""; // Clear previous chapter details
+
+        if (chapters) {
+          let serialNumber = 1;
+          for (const chapterId in chapters) {
+            const chapter = chapters[chapterId];
+            const chapterListItem = document.createElement("div");
+            chapterListItem.classList.add("chapter-list-item");
+
+            // Create a link to display the chapter details
+            const chapterLink = document.createElement("a");
+            chapterLink.href = `displaychapters.html?bookId=${bookId}&chapterId=${chapterId}`; // Link to displaychapters.html with bookId and chapterId as URL parameters
+            chapterLink.textContent = `${serialNumber}. ${chapter.title}`;
+            chapterListItem.appendChild(chapterLink);
+
+            chaptersContainer.appendChild(chapterListItem);
+            serialNumber++;
+          }
+        } else {
+          const noChapterMsg = document.createElement("div");
+          noChapterMsg.classList.add("no-data");
+          noChapterMsg.textContent = "No chapters available.";
+          chaptersContainer.appendChild(noChapterMsg);
+          console.log("No chapters.");
+        }
+      } catch (error) {
+        console.error("Error fetching chapters:", error);
+        alert("An error occurred while fetching chapters. Please try again.");
+      }
+    }
+    // Add event listeners to toggle buttons
+    descriptTextContainer.addEventListener(
+      "click",
+      toggleDescriptionAndChapters
+    );
+    chapterTextContainer.addEventListener(
+      "click",
+      toggleDescriptionAndChapters
+    );
   });
 }
 
@@ -102,63 +182,3 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Book ID not found in URL parameters");
   }
 });
-
-// Function to extract the book ID from the URL parameter
-function getBookIdFromURL() {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get("bookId");
-}
-
-// Function to display chapters
-async function displayChapters(bookId) {
-  try {
-    const chaptersRef = ref(db, `books/${bookId}/chapters`);
-    const snapshot = await get(chaptersRef);
-    const chapters = snapshot.val();
-
-    if (chapters) {
-      const chaptersContainer = document.getElementById("chaptersContainer");
-
-      for (const chapterId in chapters) {
-        const chapter = chapters[chapterId];
-        const chapterBox = document.createElement("div");
-        chapterBox.classList.add("chapter-box");
-
-        const chapterTitle = document.createElement("div");
-        chapterTitle.classList.add("chapter-title");
-        chapterTitle.textContent = chapter.title;
-
-        const timestamp = document.createElement("div");
-        timestamp.classList.add("timestamp");
-        timestamp.textContent = chapter.timestamp;
-
-        // Create a link to contentpage.html with the chapter content as a query parameter
-        const contentLink = document.createElement("a");
-        contentLink.textContent = "Read";
-        contentLink.href = `/html/contentpage.html?bookId=${bookId}&chapterId=${chapterId}`;
-
-        chapterBox.appendChild(chapterTitle);
-        chapterBox.appendChild(timestamp);
-        chapterBox.appendChild(contentLink);
-
-        chaptersContainer.appendChild(chapterBox);
-      }
-    } else {
-      console.log("No chapters found for this book.");
-    }
-  } catch (error) {
-    console.error("Error fetching chapters:", error);
-    alert("An error occurred while fetching chapters. Please try again.");
-  }
-}
-
-// Call displayChapters function when the page loads
-window.onload = function () {
-  const bookId = getBookIdFromURL();
-  if (bookId) {
-    displayChapters(bookId);
-  } else {
-    console.error("No book ID found in URL parameter.");
-    alert("No book ID found in URL parameter.");
-  }
-};

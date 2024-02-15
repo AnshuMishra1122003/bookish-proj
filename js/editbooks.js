@@ -53,6 +53,7 @@ async function editBookDetails() {
 }
 
 // Event listener for submitting edited book details
+// JavaScript
 document.getElementById("saveChangesBookBtn").addEventListener("click", async function (event) {
   event.preventDefault();
   // Retrieve the book ID from the URL parameter
@@ -69,7 +70,13 @@ document.getElementById("saveChangesBookBtn").addEventListener("click", async fu
 async function submitEditedBookDetails(bookId) {
   try {
     const title = document.getElementById("editbookTitle").value;
-    const genres = document.getElementById("editgenres").value.split(",").map((genre) => genre.trim());
+    const selectedGenres = Array.from(document.querySelectorAll('input[name="genre"]:checked')).map(checkbox => checkbox.value);
+    
+    if (selectedGenres.length > 3) {
+      alert("Please select up to three genres.");
+      return;
+    }
+
     const tags = document.getElementById("edittags").value.split(",").map((tag) => tag.trim());
     const description = document.getElementById("editdescription").value;
     const imageUrl = document.getElementById("edituploadedImage").src;
@@ -81,7 +88,7 @@ async function submitEditedBookDetails(bookId) {
     // Update the book details in the database
     await set(ref(db, `books/${bookId}`), {
       title: title,
-      genres: genres,
+      genres: selectedGenres,
       tags: tags,
       description: description,
       imageUrl: imageUrl,
@@ -99,4 +106,3 @@ async function submitEditedBookDetails(bookId) {
     alert("An error occurred while updating book details. Please try again.");
   }
 }
-

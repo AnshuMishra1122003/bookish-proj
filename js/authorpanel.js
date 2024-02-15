@@ -258,14 +258,17 @@ async function submitForm(event) {
 
         // Get form values
         const bookTitle = document.getElementById("bookTitle").value;
-        const genresInput = document.getElementById("genres");
-        const genres = genresInput.value
-          .split(",")
-          .map((genre) => genre.trim());
+        const selectedGenres = document.querySelectorAll('input[name="genre"]:checked');
+        const genres = Array.from(selectedGenres).map((checkbox) => checkbox.value);
         const tagsInput = document.getElementById("tags");
         const tags = tagsInput.value.split(",").map((tag) => tag.trim());
         const description = document.getElementById("description").value;
         const imageUrl = document.getElementById("uploadedImage").src || "";
+
+        if (genres.length > 3) {
+          alert("Please select up to three genres.");
+          return;
+        }
 
         const newBook = {
           email: email,
@@ -283,14 +286,18 @@ async function submitForm(event) {
 
         // Clear form fields after successful submission
         document.getElementById("bookTitle").value = "";
-        genresInput.value = "";
         tagsInput.value = "";
         document.getElementById("description").value = "";
         document.getElementById("uploadedImage").src = "";
 
+        // Uncheck checkboxes after submission
+        selectedGenres.forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+
         // Display success message or redirect if needed
         alert("Book added successfully!");
-        window.location.replace("/html/addchapter.html");
+        window.location.replace("/html/authordashboard.html");
       }
     });
   } catch (error) {
