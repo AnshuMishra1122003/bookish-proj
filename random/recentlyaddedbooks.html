@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recently Added Books</title>
+    <style>
+        /* CSS styles for the book display */
+        .recently-added-books {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .book {
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .book-title {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Recently Added Books</h1>
+    <div class="recently-added-books">
+        <a href="#" id="genre-all">All</a> <!-- Assign an id to the anchor tag -->
+        <a href="#" id="genre-action">Action</a> <!-- Assign an id to the anchor tag -->
+    </div>
+    <script src="/js/test.js" type="module"></script>
+</body>
+
+</html>

@@ -30,7 +30,7 @@ async function submitForm(event, bookId) {
           username: email,
           email: email,
           title: chapterTitle,
-          content: chapterContent,
+          content: chapterContent, // Store chapter content as-is without modification
           timestamp: new Date().toLocaleString(),
         });
 
@@ -40,7 +40,7 @@ async function submitForm(event, bookId) {
           username: email,
           email: email,
           title: chapterTitle,
-          content: chapterContent,
+          content: chapterContent, // Store chapter content as-is without modification
           timestamp: new Date().toLocaleString(),
         });
 

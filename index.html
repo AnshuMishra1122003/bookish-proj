@@ -10,8 +10,8 @@
 </head>
 
 <body>
-     <!-------------header starts------------------->
-     <header id="header" class="header">
+    <!-------------header starts------------------->
+    <header id="header" class="header">
 
         <div class="header-1">
 
@@ -66,11 +66,11 @@
                 </label>
                 <div class="menu">
                     <a href="/index.html" class="nav-link" onclick="showMenu(0)">Home</a>
-                    <a href="/html/genres.html"  onclick="showMenu(1)">Genres</a>
-                    <a href="/html/authordashboard.html"  onclick="showMenu(2)">Create</a>
-                    <a href="#"  onclick="showMenu(3)">History</a>
-                    <a href="/html/admin.html"  onclick="showMenu(4)">User Settings</a>
-                    <a href="#"  onclick="showMenu(5)">About Us</a>
+                    <a href="/html/genres.html" onclick="showMenu(1)">Genres</a>
+                    <a href="/html/authordashboard.html" onclick="showMenu(2)">Create</a>
+                    <a href="#" onclick="showMenu(3)">Library</a>
+                    <a href="/html/admin.html" onclick="showMenu(4)">User Settings</a>
+                    <a href="#" onclick="showMenu(5)">About Us</a>
                 </div>
             </nav>
         </div>
@@ -81,220 +81,40 @@
             }
         </script>
         <script>
-            document.addEventListener("DOMContentLoaded", function(){
+            document.addEventListener("DOMContentLoaded", function () {
                 const menuLinks = document.querySelectorAll("menu a");
 
-                menuLinks.forEach(function (link, index){
-                    link.addEventListener("click", function(){
-                         // Remove 'active' class from all links
-                         menuLinks.forEach(function (menuLink){
+                menuLinks.forEach(function (link, index) {
+                    link.addEventListener("click", function () {
+                        // Remove 'active' class from all links
+                        menuLinks.forEach(function (menuLink) {
                             menuLink.classList.remove("active");
-                         });
-                         // Add 'active' class to the clicked link
-                         link.classList.add("active")
+                        });
+                        // Add 'active' class to the clicked link
+                        link.classList.add("active")
 
-                         // Show the selected link
-                         showMenu(index);
+                        // Show the selected link
+                        showMenu(index);
                     });
                 });
             });
         </script>
-        <!------------------navigation bar scroll--------------------->
-        <!-- <script>
-            var prevScrollpos = window.pageYOffset;
-            window.onscroll = function () {
-                var currentScrollPos = window.pageYOffset;
-                if (prevScrollpos > currentScrollPos) {
-                    document.getElementById("header").style.top = "0";
-                } else {
-                    document.getElementById("header").style.top = "200px";
-                }
-                prevScrollpos = currentScrollPos;
-            }
-        </script> -->
     </header>
     <!---------------------Header close---------------------->
-    <!-----------------------Carousel --------------------->
-    <div class="slideshow-container">
-        <div class="mySlides">
-            <div class="content">
-                <h3>Genres: <span>Fantasy</span>
-                </h3><br>
-                <h2> Lorem Ipsum Fantasy</h2><br>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur.
-                </p>
-            </div>
-            <div class="img-container">
-                <img class="img" src="/assets/sliding1.jpg" alt="Slide 1">
-            </div>
-            <div id="button-content" class="btn-slides">
-                <a href="#" class="read-now">Read now</a>
-                <a href="#" id="carousel-bookmark-2" class="carousel-bkmrk"><i class='bx bxs-bookmark'></i></a>
-            </div>
-        </div>
-
-        <div class="mySlides">
-            <div class="content">
-                <h3>Genres: <span>Action</span>
-                </h3><br>
-                <h2> Lorem Ipsum Action</h2><br>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur.
-                </p>
-            </div>
-            <div class="img-container">
-                <img class="img" src="/assets/slid2.jpg" alt="Slide 2">
-            </div>
-            <div id="button-content" class="btn-slides">
-                <a href="#" class="read-now">Read now</a>
-                <a href="#" id="carousel-bookmark-2" class="carousel-bkmrk"><i class='bx bxs-bookmark'></i></a>
-            </div>
-        </div>
-
-        <div class="mySlides">
-            <div class="content">
-                <h3>Genres: <span>Adventure</span>
-                </h3><br>
-                <h2> Lorem Ipsum Adventure</h2><br>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur.
-                </p>
-            </div>
-            <div class="img-container">
-                <img class="img" src="/assets/slid3.jpg" alt="Slide 3">
-            </div>
-            <div id="button-content" class="btn-slides">
-                <a href="#" class="read-now">Read now</a>
-                <a href="#" id="carousel-bookmark-2" class="carousel-bkmrk"><i class='bx bxs-bookmark'></i></a>
-            </div>
-        </div>
-
-        <div class="mySlides">
-            <div class="content">
-                <h3>Genres: <span>Fantasy</span>
-                </h3><br>
-                <h2> Lorem Ipsum Fantasy</h2><br>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur.
-                </p>
-            </div>
-            <div class="img-container">
-                <img class="img" src="/assets/sliding1.jpg" alt="Slide 1">
-            </div>
-            <div id="button-content" class="btn-slides">
-                <a href="#" class="read-now">Read now</a>
-                <a href="#" id="carousel-bookmark-2" class="carousel-bkmrk"><i class='bx bxs-bookmark'></i></a>
-            </div>
-        </div>
-
-        <div class="mySlides">
-            <div class="content">
-                <h3>Genres: <span>Action</span>
-                </h3><br>
-                <h2> Lorem Ipsum Action</h2><br>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur.
-                </p>
-            </div>
-            <div class="img-container">
-                <img class="img" src="/assets/slid2.jpg" alt="Slide 2">
-            </div>
-            <div id="button-content" class="btn-slides">
-                <a href="#" class="read-now">Read now</a>
-                <a href="#" id="carousel-bookmark-2" class="carousel-bkmrk"><i class='bx bxs-bookmark'></i></a>
-            </div>
-        </div>
-
-        <div class="mySlides">
-            <div class="content">
-                <h3>Genres: <span>Adventure</span>
-                </h3><br>
-                <h2> Lorem Ipsum Adventure</h2><br>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur.
-                </p>
-            </div>
-            <div class="img-container">
-                <img class="img" src="/assets/slid3.jpg" alt="Slide 3">
-            </div>
-            <div id="button-content" class="btn-slides">
-                <a href="#" class="read-now">Read now</a>
-                <a href="#" id="carousel-bookmark-2" class="carousel-bkmrk"><i class='bx bxs-bookmark'></i></a>
-            </div>
+    <!-- Main carousel -->
+    <section>
+        <div class="slideshow-container" id="slideshow-container">
+            <!-- Slides will be dynamically added here -->
         </div>
 
         <!-- Add navigation dots here -->
-        <div style="text-align:center">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
-    </div>
-    <script>
-        let slideIndex = 0;
-        showSlides();
+        <div class="slider-dots"></div>
 
-        function showSlides() {
-            let i;
-            const slides = document.getElementsByClassName("mySlides");
-            const dots = document.getElementsByClassName("dot");
-
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-
-            slideIndex++;
-
-            if (slideIndex > slides.length) {
-                slideIndex = 1;
-            }
-
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-
-            slides[slideIndex - 1].style.display = "flex";
-            dots[slideIndex - 1].className += " active";
-
-            setTimeout(showSlides, 5000); // Change slide every 5 seconds
-        }
-    </script>
-
-    <!------------------------------carousel close----------------------------------------->
+        
+        <script src="/js/maincarousel.js" type="module">
+        </script>
+    </section>
+    <!--  Main carousel close -->
     <!-- ------------------Recently Added Novels------------------- -->
     <section>
         <div class="carousel-recentlyadded-container">
@@ -319,32 +139,32 @@
                     const paginationLinks = document.querySelectorAll(".pagination a");
                     const wrapper = document.querySelector('.carousel-recentlyadded-wrapper');
                     const slideWidth = document.querySelector('.carousel-recentlyadded-slide').offsetWidth;
-            
+
                     paginationLinks.forEach(function (link, index) {
                         link.addEventListener("click", function () {
                             // Remove 'active' class from all links
                             paginationLinks.forEach(function (paginationLink) {
                                 paginationLink.classList.remove("active");
                             });
-            
+
                             // Add 'active' class to the clicked link
                             link.classList.add("active");
-            
+
                             // Show the selected genre
                             showGenre(index);
                         });
                     });
                 });
-            
+
                 let currentGenre = 0;
-            
+
                 function showGenre(index) {
                     const wrapper = document.querySelector('.carousel-recentlyadded-wrapper');
                     const slideWidth = document.querySelector('.carousel-recentlyadded-slide').offsetWidth;
-            
+
                     currentGenre = index;
                     const allSlides = document.querySelectorAll('.carousel-recentlyadded-slide');
-            
+
                     allSlides.forEach((slide, slideIndex) => {
                         if (slideIndex === currentGenre) {
                             slide.style.display = 'block';
@@ -352,7 +172,7 @@
                             slide.style.display = 'none';
                         }
                     });
-            
+
                     // Update the transform property to show the selected genre
                     wrapper.style.transform = `translateX(-${currentGenre * slideWidth}px)`;
                 }
@@ -903,7 +723,7 @@
                 wrapper.style.transform = `translateX(-${currentGenre * slideWidth}px)`;
             }
         </script> -->
-        
+
     </section>
     <!-- -------------------Recently Added Novels close------------------------------ -->
     <!-- Slider -->

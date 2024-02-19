@@ -23,7 +23,7 @@ function displayBookDetails(bookId) {
     coverImg.alt = "Cover";
     coverImg.classList.add("cover-img");
     // Set coverImg source dynamically from localhost
-    coverImg.src = `http://localhost/covers/${bookId}.jpg`;
+    coverImg.src = bookData.imageUrl; 
 
     // Create title container
     const titleContainer = document.createElement("div");

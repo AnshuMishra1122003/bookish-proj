@@ -7,8 +7,8 @@ import {
   ref,
   onValue,
   set,
-  get,
   push,
+  get,
 } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
 
@@ -256,48 +256,90 @@ async function submitForm(event) {
       if (user) {
         const email = user.email;
 
-        // Get form values
-        const bookTitle = document.getElementById("bookTitle").value;
-        const selectedGenres = document.querySelectorAll('input[name="genre"]:checked');
-        const genres = Array.from(selectedGenres).map((checkbox) => checkbox.value);
-        const tagsInput = document.getElementById("tags");
-        const tags = tagsInput.value.split(",").map((tag) => tag.trim());
-        const description = document.getElementById("description").value;
-        const imageUrl = document.getElementById("uploadedImage").src || "";
+        try {
+          // Fetch user details to get username
+          const userSnapshot = await get(ref(db, `users/${user.uid}`));
+          const username = userSnapshot.val().username;
 
-        if (genres.length > 3) {
-          alert("Please select up to three genres.");
-          return;
+          // Get form values
+          const bookTitle = document.getElementById("bookTitle").value;
+          const selectedGenres = document.querySelectorAll(
+            'input[name="genre"]:checked'
+          );
+
+          if (selectedGenres.length > 3) {
+            alert("Please select up to three genres.");
+            return;
+          }
+
+          // Create an array to store selected genres
+          const genres = Array.from(selectedGenres).map(
+            (checkbox) => checkbox.value
+          );
+          const tagsInput = document.getElementById("tags");
+          const tags = tagsInput.value.split(",").map((tag) => tag.trim());
+          const description = document.getElementById("description").value;
+          const imageUrl =
+            document.getElementById("uploadedImage").src || "";
+
+          // Create a new book object
+          const newBook = {
+            email: email,
+            username: username,
+            title: bookTitle,
+            genres: genres,
+            tags: tags,
+            description: description,
+            imageUrl: imageUrl.toString(),
+          };
+
+          // Get a reference to the 'books' node
+          const booksRef = ref(db, "books");
+
+          // Generate a unique key for the new book
+          const newBookRef = push(booksRef);
+
+          // Store the book details under the 'books' node
+          await set(newBookRef, newBook);
+
+          // Store tags under 'tags' node
+          tags.forEach(async (tag) => {
+            const tagBookRef = ref(db, `tags/${tag}/books/${newBookRef.key}`);
+            await set(tagBookRef, true);
+          });
+
+          // Iterate over selected genres and store book ID under each genre node
+          selectedGenres.forEach(async (checkbox) => {
+            const genre = checkbox.value;
+
+            // Get a reference to the genre node
+            const genreBookRef = ref(
+              db,
+              `genres/${genre}/books/${newBookRef.key}`
+            );
+
+            // Store the book ID under the genre node
+            await set(genreBookRef, true);
+          });
+
+          // Clear form fields after successful submission
+          document.getElementById("bookTitle").value = "";
+          tagsInput.value = "";
+          document.getElementById("description").value = "";
+          document.getElementById("uploadedImage").src = "";
+
+          // Uncheck checkboxes after submission
+          selectedGenres.forEach((checkbox) => {
+            checkbox.checked = false;
+          });
+
+          // Display success message or redirect if needed
+          alert("Book added successfully!");
+          window.location.replace("/html/authordashboard.html");
+        } catch (error) {
+          console.error("An unexpected error occurred:", error);
+          alert("An unexpected error occurred. Please try again.");
         }
-
-        const newBook = {
-          email: email,
-          title: bookTitle,
-          genres: genres,
-          tags: tags,
-          description: description,
-          imageUrl: imageUrl.toString(),
-        };
-
-        const booksRef = ref(db, "books");
-        const newBookRef = push(booksRef); // Generate a unique key
-
-        await set(newBookRef, newBook);
-
-        // Clear form fields after successful submission
-        document.getElementById("bookTitle").value = "";
-        tagsInput.value = "";
-        document.getElementById("description").value = "";
-        document.getElementById("uploadedImage").src = "";
-
-        // Uncheck checkboxes after submission
-        selectedGenres.forEach((checkbox) => {
-          checkbox.checked = false;
-        });
-
-        // Display success message or redirect if needed
-        alert("Book added successfully!");
-        window.location.replace("/html/authordashboard.html");
       }
     });
   } catch (error) {
@@ -305,6 +347,7 @@ async function submitForm(event) {
     alert("An unexpected error occurred. Please try again.");
   }
 }
+
 
 // Event listener for addbooks
 document
