@@ -7,42 +7,148 @@
     <title>Recently Added Books</title>
     <style>
         /* CSS styles for the book display */
-        .recently-added-books {
+        .recently-added-title {
+            margin-top: 40px;
+            margin-left: 20px;
+            display: inline-block;
+            align-items: flex-start;
+            text-decoration: none;
+            color: var(--black);
+        }
+
+        .recently-added-title h1 {
+            font-weight: 700;
+            font-size: 30px;
+        }
+
+        .pagination {
+            margin: -40px 300px;
+            padding: 0px 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .pagination a {
+            font-weight: 700;
+            color: #444;
+            margin-right: 1px;
+            padding: 12px 30px;
+            font-size: 22px;
+        }
+
+        .pagination a:hover {
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .pagination .active {
+            background-color: #27ae60;
+            border-radius: 5px;
+        }
+
+        .books-container-recent-added {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 20px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin: 40px;
         }
 
         .book {
-            text-align: center;
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin-bottom: 0px;
         }
 
-        .book-cover {
-            width: 100%;
-            height: auto;
+        .book-image {
+            width: 230px;
+            height: 306px;
+            margin: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
             border-radius: 5px;
+            transition: transform 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .book-image img {
+            width: 230px;
+            height: 306px;
+            border-radius: 5px;
+        }
+
+        .book-image:hover {
+            transform: scale(1.1);
         }
 
         .book-title {
-            margin-top: 10px;
-            font-size: 16px;
-            font-weight: bold;
+            max-width: 230px;
+            height: 100px;
+            font-size: 20px;
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--black);
         }
     </style>
 </head>
 
 <body>
-    <h1>Recently Added Books</h1>
-    <div class="recently-added-books">
-        <a href="#" id="genre-all">All</a> <!-- Assign an id to the anchor tag -->
-        <a href="#" id="genre-action">Action</a> <!-- Assign an id to the anchor tag -->
+    <div class="recently-added-title">
+        <h1>Recently Added Novels</h1>
+
+        <div class="pagination">
+            <a id="genre-all" class="active" onclick="showGenre(0)">All</a>
+            <a id="genre-action" data-genre="action" onclick="showGenre(1)">Action</a>
+            <a id="genre-adventure" data-genre="adventure" onclick="showGenre(2)">Adventure</a>
+            <a id="genre-fantasy" data-genre="fantasy" onclick="showGenre(3)">Fantasy</a>
+            <a id="genre-romance" data-genre="romance" onclick="showGenre(4)">Romance</a>
+            <a id="genre-game" data-genre="game" onclick="showGenre(5)">Game</a>
+            <a id="genre-urban" data-genre="urban" onclick="showGenre(6)">Urban</a>
+        </div>
     </div>
+    <br><br>
+    <div id="books-container" class="books-container-recent-added"></div>
+
     <script src="/js/test.js" type="module"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const paginationLinks = document.querySelectorAll(".pagination a");
+
+            paginationLinks.forEach(function (link) {
+                link.addEventListener("click", function () {
+                    // Remove 'active' class from all links
+                    paginationLinks.forEach(function (paginationLink) {
+                        paginationLink.classList.remove("active");
+                    });
+
+                    // Add 'active' class to the clicked link
+                    link.classList.add("active");
+
+                    // Show the selected genre
+                    showGenre(link.dataset.genre);
+                });
+            });
+        });
+
+        function showGenre(genre) {
+            const books = document.querySelectorAll('.book');
+
+            books.forEach((book) => {
+                if (genre === '0') {
+                    // Show all books
+                    book.style.display = 'block';
+                } else {
+                    // Show books of the selected genre
+                    book.style.display = book.dataset.genre === genre ? 'block' : 'none';
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

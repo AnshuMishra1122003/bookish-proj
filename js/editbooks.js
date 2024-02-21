@@ -143,7 +143,7 @@ document
       await Promise.all(
         tags.map(async (tag) => {
           const tagBookRef = ref(db, `tags/${tag}/books/${bookId}`);
-          await set(tagBookRef, true);
+          await set(tagBookRef, updatedBook);
         })
       );
   
@@ -151,7 +151,7 @@ document
       await Promise.all(
         selectedGenres.map(async (genre) => {
           const genreBookRef = ref(db, `genres/${genre}/books/${bookId}`);
-          await set(genreBookRef, true);
+          await set(genreBookRef, updatedBook);
         })
       );
   
