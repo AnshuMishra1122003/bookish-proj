@@ -49,7 +49,7 @@ html::-webkit-scrollbar-thumb {
 /****************All Sections************************/
 
 section {
-  padding: 200px 9%;
+  padding: 100px 9%;
 }
 
 /*******************All headings************************/
@@ -398,8 +398,6 @@ section {
   color: black;
   border-radius: 10px;
   padding: 30px 40px;
-  margin-top: -100px;
-  margin-bottom: px;
   margin-left: 300px;
 }
 
@@ -797,10 +795,7 @@ section {
   padding-right: 20px;
 }
 
-.row {
-  margin-top: -150px;
-}
-
+  
 .footer-links {
   font-size: 28px;
   display: flex;
@@ -863,12 +858,11 @@ section {
 }
 
 .content {
+  height: 290px;
+  width: 800px;
   padding: 20px;
   position: absolute;
   top: 120px;
-  left: 100px;
-  width: 800px;
-  height: 290px;
   overflow: hidden;
   font-size: 20px;
   text-align: left;
@@ -891,7 +885,9 @@ section {
 
 .content h2 {
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  cursor: pointer;
 }
 
 .content p {
@@ -917,36 +913,23 @@ section {
 
 .img {
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 20px;
   background-size: cover;
   position: absolute;
   z-index: 1;
 }
 
-.slider-dots {
-  text-align: center;
-  margin-top: 230px;
-}
-
-/* Add styling for navigation dots */
-.slider-dots .dot {
-  position: relative;
-  height: 15px;
-  width: 15px;
-  margin: 0px 5px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
-
-.slider-dots .dot .active {
-  background-color: #d41313;
-}
 
 .btn-slides {
   display: flex;
+  margin-left: -99px;
+}
+
+.btn-slides a:hover {
+  background: var(--green);
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 .btn-slides .read-now {
@@ -964,10 +947,6 @@ section {
   animation: showcontent 1s ease-in-out 0.6s 1 forwards;
 }
 
-.btn-slides a:hover {
-  background: var(--green);
-  border-radius: 2px;
-}
 
 .btn-slides .carousel-bkmrk {
   height: 40px;
@@ -986,28 +965,40 @@ section {
   font-size: 20px;
 }
 
-/********************************* Recently Added Novels **********************************/
-
-.carousel-recentlyadded-container {
-  width: 100%;
-  height: 1080px;
-  margin-top: -400px;
-  position: absolute;
-  background-color: transparent;
-  transform: translate(-8.7%, 0%);
-  /* box-shadow: 0 30px 50px var(--black); */
+.slider-dots {
+  text-align: center;
+  margin-top: 330px;
 }
 
-.recently-added-title {
-  margin-top: 40px;
-  margin-left: 20px;
+/* Add styling for navigation dots */
+.slider-dots .dot {
+  position: relative;
+  height: 15px;
+  width: 15px;
+  margin: 0px 5px;
+  background-color: #b8b8b8;
+  border-radius: 50%;
   display: inline-block;
-  align-items: flex-start;
+  transition: background-color 0.6s ease;
+}
+
+.dot .active {
+  background-color: #353535;
+}
+/********************************* Recently Added Novels **********************************/
+
+/* CSS styles for the book display */
+.recently-added-title {
+  margin-top: 30px;
+  margin-left: -100px;
+  display: inline-block;
+  align-items:flex-start ;
   text-decoration: none;
   color: var(--black);
 }
 
 .recently-added-title h1 {
+  margin-left: 30px;
   font-weight: 700;
   font-size: 30px;
 }
@@ -1022,7 +1013,7 @@ section {
 
 .pagination a {
   font-weight: 700;
-  color: var(--black);
+  color: #444;
   margin-right: 1px;
   padding: 12px 30px;
   font-size: 22px;
@@ -1032,60 +1023,61 @@ section {
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  background-color: var(--green);
+  background-color: #27ae60;
   color: white;
 }
 
 .pagination .active {
-  background-color: var(--green);
+  background-color: #27ae60;
   border-radius: 5px;
 }
 
-.carousel-recentlyadded-wrapper {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.carousel-recentlyadded-slide {
-  width: 100%;
-  margin-top: 50px;
-  box-sizing: border-box;
-}
-
-.book-grid {
+.books-container-recent-added {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   margin: 40px;
+  margin-left: -90px;
 }
 
-.carousel-book {
+.book {
   display: block;
   margin-bottom: 0px;
 }
 
-.carousel-book .book-cover {
+.book-image {
   width: 230px;
   height: 306px;
   margin: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ddd;
+  border: none;
   border-radius: 5px;
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
 }
 
-.book-cover:hover {
+.book-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.book-image:hover {
   transform: scale(1.1);
 }
 
-.carousel-book h3 {
+.book-title {
   max-width: 230px;
   height: 100px;
   font-size: 20px;
   position: relative;
   text-align: center;
   overflow: hidden;
+  text-decoration: none;
+  color: var(--black);
+}
+
+.book-link {
   text-decoration: none;
   color: var(--black);
 }

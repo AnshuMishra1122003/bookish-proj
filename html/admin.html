@@ -1,11 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-   
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -95,134 +96,93 @@
                 display: block;
             }
 
-        .add_books {
-            width: 50%;
-            height: auto;
-            margin: 2% auto;
-            padding: 1.5%;
-            border-radius: 8px;
-            background-color: #27ae60;
+        .displaybookcontainer {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 25px;
         }
 
-        #imageContainer {
-            position: relative;
+        .container-card {
+            width: 98%;
+            margin: 0 60px 20px 60px;
+            height: 250px;
+            background: #dbdbdb;
+            border-radius: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .book {
+            display: flex;
+            margin-top: 0px;
+        }
+
+        .cover-img {
             width: 200px;
             height: 200px;
-            margin-left: 230px;
-            margin-top: 50px;
-            background: #fff;
-            border: 2px dashed #000;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #uploadedImage {
-            max-width: 100%;
-            max-height: 100%;
             object-fit: cover;
         }
 
-        #placeholder {
-            font-size: 100px;
-            font-weight: 600;
-            color: #000;
+        .info-container {
+            flex: 1;
+            padding-left: 10px;
+            height: 230px;
+            width: 700px;
+            border-right: 1px solid #000;
+            margin-right: 10px;
         }
 
-        #browseButton {
+        .title {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .description {
             margin-top: 10px;
-            margin-left: 270px;
-            cursor: pointer;
-            padding: 8px 16px;
-            background: #fff;
-            border: none;
-            height: 45px;
-            outline: none;
-            border-radius: 40px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            font-size: 16px;
+            margin-right: 20px;
             color: #000;
-            font-weight: 600;
-        }
-
-            #browseButton:hover {
-                background: #000;
-                color: #fff;
-            }
-
-        #fileInput {
-            display: none;
-        }
-
-        /* For the genres and tags input, you can use a container to allow multiple inputs */
-
-        .addbook_label {
-            display: block;
-            margin-bottom: 0px;
-            font-size: 20px;
-            font-weight: 300;
-        }
-
-        .multiple-input-container {
-            display: flex;
-            flex-wrap: wrap;
-            position: relative;
-            width: 100%;
-            height: 20px;
-            margin-top: 10px;
-            margin-bottom: 30px;
-        }
-
-            .multiple-input-container input {
-                flex-grow: 1;
-                margin-right: 8px;
-                width: 100%;
-                height: 5px;
-                background: white;
-                border: none;
-                outline: none;
-                border: 2px solid rgba(255, 255, 255, 0.2);
-                border-radius: 40px;
-                font-size: 16px;
-                color: black;
-                padding: 20px 45px 20px 20px;
-            }
-
-        .description-textarea {
-            resize: none;
-            min-height: 70px;
-            max-height: 200px;
+            height: 140px;
+            line-height: 2.1;
             overflow: hidden;
-            transition: all 0.3s ease;
-            background: white;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 40px;
-            font-size: 18px;
-            color: black;
-            padding: 20px 45px 20px 20px;
+            position: relative;
         }
 
-        .add_books_btn {
-            width: 100%;
-            height: 45px;
-            background: #fff;
-            margin-top: 20px;
-            border: none;
-            outline: none;
-            border-radius: 40px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            font-size: 16px;
-            color: #333;
-            font-weight: 600;
-            padding: 10px;
+        .delete-icon {
+            display:block;
+            font-size: 20px;
+            margin:5px 190px;
+            padding: 10px 20px;
+            color: rgb(243, 11, 11); /* Change icon color if needed */
+        }
+       
+        .genre-tags-container {
+            padding-left: 10px;
+            width: 250px;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
         }
 
-            .add_books_btn:hover {
-                background: #000;
-                color: #fff;
-            }
+        .genres {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-size: 19px;
+            color: #000;
+        }
+
+        .tags {
+            font-size: 19px;
+            color: #000;
+        }
+
+        .border-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: 1px;
+            background-color: #000;
+        }
 
         .user-table {
             width: 100%;
@@ -245,10 +205,7 @@
             margin-bottom: 20px;
         }
 
-
-
         @media (max-width: 1034px) {
-
             .navbar a:not(.navbar-toggler) {
                 display: none;
             }
@@ -264,19 +221,6 @@
             .submenu-content.show {
                 display: block;
             }
-
-            .add_books {
-                width: 80%;
-            }
-
-            #imageContainer {
-                z-index: 1;
-                margin: 20px auto;
-            }
-
-            #browseButton {
-                margin-left: 38%;
-            }
         }
     </style>
 </head>
@@ -288,107 +232,63 @@
             <span></span>
             <span></span>
         </div>
+        <a href="#">Dashboard</a>
         <a href="#" onclick="toggleSubMenu('booksSubMenu')">Books</a>
         <a href="#" onclick="toggleSubMenu('usersSubMenu')">Users</a>
-        <a href="#">Dashboard</a>
-        <a href="#">Subscription</a>
+        <a href="/html/paymentpage.html">Subscription</a>
         <!-- Add more links as needed -->
     </div>
 
     <div class="sidebar" id="sidebar">
-        <a href="#" onclick="toggleSubMenu('booksSubMenu')">Books</a>
-        <a href="#" onclick="toggleSubMenu('usersSubMenu')">Users</a>
         <a href="#">Dashboard</a>
-        <a href="#">Subscription</a>
+        <a href="#" onclick="toggleSubMenu('booksSubMenu')">Books</a>
+        <a href="#" onclick="toggleSubMenu('usersSubMenu')">Users</a>s
+        <a href="/html/paymentpage.html">Subscription</a>
         <!-- Add more links as needed -->
     </div>
 
     <div class="content">
         <div class="submenu-content" id="booksSubMenu">
-            <form id="addbooks" class="add_books" method="post">
-                <div id="imageContainer">
-                    <div id="placeholder">+</div>
-                    <img id="uploadedImage" src="#" alt="" />
+            <div class="search-bar">
+                <input type="text" id="search" onkeyup="searchBooks()" placeholder="Search Books...">
+
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="genreDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        All Genres
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="genreDropdown">
+                        <a class="dropdown-item" href="#" onclick="filterBooks('All')">All Genres</a>
+                        <a class="dropdown-item" href="#" onclick="filterBooks('Action')">Action</a>
+                        <a class="dropdown-item" href="#" onclick="filterBooks('Adventure')">Adventure</a>
+                        <a class="dropdown-item" href="#" onclick="filterBooks('Romance')">Romance</a>
+                        <a class="dropdown-item" href="#" onclick="filterBooks('Game')">Game</a>
+                        <a class="dropdown-item" href="#" onclick="filterBooks('Urban')">Urban</a>
+                        <a class="dropdown-item" href="#" onclick="filterBooks('Fantasy')">Fantasy</a>
+                        <!-- Add more genres as needed -->
+                    </div>
                 </div>
-                <input type="file" id="fileInput" accept=".png, .jpg" />
-                <button id="browseButton" onclick="document.getElementById('fileInput').click()">
-                    Browse Image
-                </button>
-
-                <label class="addbook_label" for="bookTitle">Book Title:</label>
-                <div class="multiple-input-container">
-                    <input type="text" id="bookTitle" name="bookTitle" placeholder="Enter Title" required />
-                </div>
-
-                <label class="addbook_label" for="genres">Genres (comma-separated, maximum 3):</label>
-                <div class="multiple-input-container">
-                    <input type="text" id="genres" name="genres" placeholder="Enter up to 3 genres (comma-separated)" required pattern="[^,]+(?:,[^,]+){0,2}" />
-                </div>
-
-                <label class="addbook_label" for="tags">Tags (comma-separated, maximum 5):</label>
-                <div class="multiple-input-container">
-                    <input type="text" id="tags" name="tags" placeholder="Enter up to 5 tags (comma-separated)" required pattern="[^,]+(?:,[^,]+){0,4}" />
-                </div>
-
-                <label class="addbook_label" for="description">Book Description:</label>
-                <div class="description-textarea">
-                    <textarea id="description" name="description" rows="10" cols="80" required></textarea>
-                </div>
-                <button id="addbooks_btn" type="submit" class="add_books_btn">
-                    Add Book
-                </button>
-
-                <button id="deleteButton">Delete Book</button>
-                <button id="disableButton" onclick="disableBookStatus(false)">Disable Book</button>
-                <button id="enableButton" onclick="enableBookStatus(true)" style="display: none;">Enable Book</button>
-
-            </form>
+            </div>
+            <div class="displaybookcontainer" id="bookContainer">
+                <!-- Books will be dynamically added here -->
+            </div>
         </div>
 
 
         <div class="submenu-content" id="usersSubMenu">
-            <div>
-                <input type="text" id="searchInput" oninput="searchUsers()" placeholder="Search by username">
-            </div>
+            <input type="text" id="searchInput" onkeyup="searchUsers()" placeholder="Search">
+
             <table class="user-table">
                 <thead>
-                    <tr>
-                        <th>Serial No.</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
+                <th>SrNo</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+
                 </thead>
-                <tbody id="userTableBody">
-                    <!-- User data will be dynamically added here using JavaScript -->
+                <tbody id="tableBody">
                 </tbody>
             </table>
-
-            <!-- Placeholder content for the submenu items -->
-            <!-- Your existing submenu content remains unchanged -->
-
         </div>
-    </div>
-
-    <!-- Placeholder content for the submenu items -->
-    <div id="addBooksContent" class="submenu-content">
-        <h2>Add Books</h2>
-        <p>This is the content for adding books.</p>
-    </div>
-
-    <div id="deleteBooksContent" class="submenu-content">
-        <h2>Delete Books</h2>
-        <p>This is the content for deleting books.</p>
-    </div>
-
-    <div id="disabledBooksContent" class="submenu-content">
-        <h2>Disabled Books</h2>
-        <p>This is the content for disabled books.</p>
-    </div>
-
-    <div id="statusOfBooksContent" class="submenu-content">
-        <h2>Status of Books</h2>
-        <p>This is the content for the status of books.</p>
     </div>
     <script>
         function toggleSidebar() {
@@ -417,6 +317,6 @@
             });
         }
     </script>
- <script type="module" src="/js/adminpanel.js"></script>
+    <script type="module" src="/js/adminpanel.js"></script>
 </body>
 </html>

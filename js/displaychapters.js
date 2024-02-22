@@ -38,43 +38,80 @@ async function displayBookDetails(bookId) {
         // Display book title
         bookDetailsContainer.appendChild(bookTitle);
 
-        // Display chapter title
-        const chapterTitle = document.createElement("h3");
-        chapterTitle.textContent = currentChapter.title;
-        bookDetailsContainer.appendChild(chapterTitle);
-
-        // Display chapter content
-        const chapterContent = document.createElement("p");
-        chapterContent.textContent = currentChapter.content;
-        bookDetailsContainer.appendChild(chapterContent);
-
-        // Add navigation buttons
-        const backButton = document.createElement("button");
-        backButton.textContent = "Previous Chapter";
-        backButton.addEventListener("click", () => {
+        // Add navigation buttons above the content
+        const backButtonTop = document.createElement("button");
+        backButtonTop.classList.add("float-left");
+        backButtonTop.textContent = "Previous Chapter";
+        backButtonTop.addEventListener("click", () => {
           if (currentChapterIndex > 0) {
             currentChapterIndex--;
             displayCurrentChapter();
           }
         });
-        bookDetailsContainer.appendChild(backButton);
+        bookDetailsContainer.appendChild(backButtonTop);
 
-        const indexButton = document.createElement("button");
-        indexButton.textContent = "Index";
-        indexButton.addEventListener("click", () => {
+        const indexButtonTop = document.createElement("button");
+        indexButtonTop.classList.add("float-center");
+        indexButtonTop.textContent = "Index";
+        indexButtonTop.addEventListener("click", () => {
           location.href = `/html/previewpage.html?bookId=${bookId}`;
         });
-        bookDetailsContainer.appendChild(indexButton);
-        
-        const nextButton = document.createElement("button");
-        nextButton.textContent = "Next Chapter";
-        nextButton.addEventListener("click", () => {
+        bookDetailsContainer.appendChild(indexButtonTop);
+
+        const nextButtonTop = document.createElement("button");
+        nextButtonTop.classList.add("float-right");
+        nextButtonTop.textContent = "Next Chapter";
+        nextButtonTop.addEventListener("click", () => {
           if (currentChapterIndex < chapterIds.length - 1) {
             currentChapterIndex++;
             displayCurrentChapter();
           }
         });
-        bookDetailsContainer.appendChild(nextButton);
+        bookDetailsContainer.appendChild(nextButtonTop);
+
+        // Display chapter title
+        const chapterTitle = document.createElement("h3");
+        chapterTitle.textContent = currentChapter.title;
+        bookDetailsContainer.appendChild(chapterTitle);
+
+        // Display chapter content with each sentence on a new line
+        const chapterContent = document.createElement("p");
+        chapterContent.textContent = currentChapter.content.replace(
+          /(\.|\?|\!)(\s|$)/g,
+          "$1\n"
+        );
+        bookDetailsContainer.appendChild(chapterContent);
+
+        // Add navigation buttons below the content
+        const backButtonBottom = document.createElement("button");
+        backButtonBottom.classList.add("float-left");
+        backButtonBottom.textContent = "Previous Chapter";
+        backButtonBottom.addEventListener("click", () => {
+          if (currentChapterIndex > 0) {
+            currentChapterIndex--;
+            displayCurrentChapter();
+          }
+        });
+        bookDetailsContainer.appendChild(backButtonBottom);
+
+        const indexButtonBottom = document.createElement("button");
+        indexButtonBottom.classList.add("float-center");
+        indexButtonBottom.textContent = "Index";
+        indexButtonBottom.addEventListener("click", () => {
+          location.href = `/html/previewpage.html?bookId=${bookId}`;
+        });
+        bookDetailsContainer.appendChild(indexButtonBottom);
+
+        const nextButtonBottom = document.createElement("button");
+        nextButtonBottom.classList.add("float-right");
+        nextButtonBottom.textContent = "Next Chapter";
+        nextButtonBottom.addEventListener("click", () => {
+          if (currentChapterIndex < chapterIds.length - 1) {
+            currentChapterIndex++;
+            displayCurrentChapter();
+          }
+        });
+        bookDetailsContainer.appendChild(nextButtonBottom);
       }
 
       // Initial display of the first chapter

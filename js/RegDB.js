@@ -17,6 +17,11 @@ async function register(event) {
 
   console.log(email, password, username);
 
+  if (!email.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/)) {
+    alert("Invalid email format");
+    return;
+}
+
   try {
     const authData = await createUserWithEmailAndPassword(
       auth,

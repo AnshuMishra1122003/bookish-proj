@@ -9,36 +9,50 @@ import {
   signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
 
-console.log(db);
+
 async function login(event) {
+  event.preventDefault();
   const email = document.getElementById("Email_TextBox").value;
   const password = document.getElementById("Password_TextBox").value;
-  //   const username = document.getElementById("Username_TextBox").value;
-  event.preventDefault();
-  //   const email = e.value;
 
-  //   const password = p.value;
+  if (!email.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/)) {
+      alert("Invalid email format");
+      return;
+  }
 
-  console.log(email, password);
+  try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-  await signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      alert("LOGIN SUCCESSFUL");
+      sessionStorage.setItem('user', JSON.stringify(user));
       window.location.href = "/index.html";
-    })
-    .catch((error) => {
-      console.log({ message: error.message });
-      alert(error.code);
-      //   const errorCode = error.code;
-      //   const errorMessage = error.message;
-    });
+  } catch (error) {
+      console.error("Login error:", error);
+      alert("Login failed. Please check your email and password.");
+  }
 }
 
-document
-  .getElementById("Login_Btn")
-  .addEventListener("click", function (event) {
-    login(event);
+document.getElementById("Login_Btn").addEventListener("click", function (event) {
+  login(event);
+});
+
+function logout() {
+ 
+  sessionStorage.removeItem('user');
+  
+  auth.signOut().then(() => {
+   
+    window.location.href = "/login.html";
+  }).catch((error) => {
+    console.error("Logout error:", error);
+    alert("Logout failed.");
   });
+}
+
+
+document.getElementById("Login_Btn").addEventListener("click", function (event) {
+  login(event);
+});
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
@@ -55,7 +69,7 @@ async function loginOAuth() {
       const user = authData.user;
       console.log(user);
 
-      await set(ref(db, `users/${user.uid}`), {
+      await set(ref(db,`users/${user.uid}`), {
         username: user?.name ?? "google",
         email: user?.email,
         password: "bookish@123",
